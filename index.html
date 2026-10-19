@@ -168,8 +168,23 @@ input:focus,textarea:focus{outline:none;border-color:var(--line);box-shadow:0 0 
 .stack{display:flex;flex-direction:column;gap:12px}
 .small{font-size:13px}
 .watch-win{border-color:#2a4d72}
+.rings{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.ring-btn{--rc:#ff375f;display:flex;flex-direction:column;align-items:center;gap:6px;padding:10px 4px;border:1px solid var(--line-dim);background:#060c18;font-family:var(--f-sys);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.ring-btn.r-ex{--rc:#9cff3a}.ring-btn.r-stand{--rc:#2fe0ff}
+.ring-dot{width:34px;height:34px;border-radius:50%;border:5px solid color-mix(in srgb,var(--rc) 28%,transparent);box-sizing:border-box}
+.ring-btn.on{color:var(--ink);border-color:var(--rc);box-shadow:0 0 12px color-mix(in srgb,var(--rc) 35%,transparent)}
+.ring-btn.on .ring-dot{border-color:var(--rc);box-shadow:0 0 10px var(--rc)}
+.quick{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;align-items:end}
+.quick input{width:100%;font:inherit;font-variant-numeric:tabular-nums;color:var(--ink);background:#060c18;border:1px solid var(--line-dim);padding:9px 8px;border-radius:0;min-width:0}
+.quick .field{min-width:0}
+.quick label{font-size:10px;white-space:nowrap}
+.stepper{display:flex;align-items:center;justify-content:space-between;gap:4px}
+.stepper .cbtn{min-width:34px;height:40px;padding:0}
+.stepper b{font-family:var(--f-sys);font-size:17px}
 .watch-win .sys-label{white-space:nowrap}
-.watch-btn{min-height:38px;padding:0 12px;font-size:12px;letter-spacing:.08em;flex:none}
+.watch-btn{min-height:40px;padding:4px 10px;font-size:11px;letter-spacing:.06em;flex:0 1 auto;max-width:52%;white-space:normal;line-height:1.2;text-align:center}
+.watch-win .today-head{align-items:center}
+.watch-win .today-head>div{min-width:0}
 .watch-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
 .watch-stats b{display:block;font-family:var(--f-sys);font-size:17px;color:var(--ink);letter-spacing:0;font-variant-numeric:tabular-nums}
 .wcode{font-size:13px;padding:8px 10px}
@@ -284,11 +299,11 @@ const POOL=[
  {id:"b07",cat:B,s:"VIT",t:"Houd in totaal {n} seconden een plank vast",n:[90,150,240,300],c:1,step:[10,30]},
  {id:"b08",cat:B,s:"AGI",t:"Doe {n} burpees zonder sprong",n:[15,25,35,50],c:1,h:"Stap naar achteren en weer naar voren in plaats van te springen."},
  {id:"b09",cat:B,s:"AGI",t:"Zet {n} zijwaartse stappen met het elastiek om je knieën (banded walks)",n:[20,30,40,60],c:1,h:"Versterkt je heupen. Dat ontlast je knieën."},
- {id:"b10",cat:B,s:"VIT",m:"f",t:"Loop in totaal {n} verdiepingen de trap op",n:[5,10,15,20],c:1},
+ {id:"b10",cat:B,s:"VIT",t:"Loop in totaal {n} verdiepingen de trap op",n:[5,10,15,20],c:1},
  {id:"b11",cat:B,s:"STR",t:"Doe {n} dips op een stoel of bank",n:[20,30,40,60],c:1},
  {id:"b12",cat:B,s:"STR",t:"Doe {n} band pull-aparts",n:[40,60,80,120],c:1,h:"Goed tegen een bolle bureaurug."},
  {id:"b13",cat:B,s:"VIT",m:"s",t:"Zet vandaag {n} stappen",n:[8000,10000,12000,15000],c:1,step:[500,1000]},
- {id:"b14",cat:B,s:"VIT",m:"c",t:"Fiets {n} kilometer",n:[8,12,20,30],u:"km",h:"Fietsen is een van de beste trainingen voor gevoelige knieën."},
+ {id:"b14",cat:B,s:"VIT",t:"Fiets {n} kilometer",n:[8,12,20,30],u:"km",h:"Fietsen is een van de beste trainingen voor gevoelige knieën."},
  {id:"b15",cat:B,s:"VIT",t:"Doe {n} terminal knee extensions met elastiek, per been",n:[15,20,30,40],c:1,h:"Elastiek achter je knie, knie rustig helemaal strekken. Klassieke knieversterker."},
  {id:"b16",cat:B,s:"AGI",t:"Doe {n} mountain climbers",n:[60,100,150,200],c:1},
  {id:"b17",cat:B,s:"AGI",t:"Doe een stretch-sessie van {n} minuten",n:[10,15,20,30]},
@@ -435,14 +450,13 @@ const POOL=[
  {id:"i45",cat:I,s:"CHA",t:"Leer {n} woorden in de taal van een buur of collega en gebruik ze",n:[2,3,5,5],c:1},
  {id:"i46",cat:I,s:"CHA",t:"Onthoud iets wat iemand gisteren vertelde en vraag ernaar"},
  // Apple Watch (verschijnen alleen als de Watch-koppeling aan staat)
- {id:"w01",cat:B,s:"VIT",w:1,m:"k",goal:"move",t:"Sluit vandaag je Bewegen-ring ({n} actieve kcal)"},
- {id:"w02",cat:B,s:"VIT",w:1,m:"rings",t:"Sluit vandaag alle drie je ringen",h:"Bewegen, Trainen en Staan, met de doelen uit je instellingen."},
- {id:"w03",cat:B,s:"VIT",w:1,m:"e",t:"Train vandaag minstens {n} minuten (Trainen-ring)",n:[30,45,60,75]},
- {id:"w04",cat:B,s:"STR",w:1,m:"k",t:"Verbrand vandaag {n} actieve kilocalorieën",n:[450,600,800,1000]},
- {id:"w05",cat:B,s:"VIT",w:1,m:"h",t:"Haal vandaag {n} sta-uren",n:[10,12,12,14],h:"Sta elk uur minstens een minuut op en beweeg."},
- {id:"w06",cat:B,s:"AGI",w:1,m:"w",t:"Start vandaag {n} workouts op je Watch",n:[1,2,2,3],h:"Elke workout van minimaal 10 minuten telt."},
- {id:"w07",cat:B,s:"AGI",w:1,m:"m",t:"Doe {n} minuten Mindfulness op je Watch",n:[3,5,10,15],h:"Open de Mindfulness-app en kies Ademhalen of Reflecteren."},
- {id:"w08",cat:B,s:"VIT",w:1,m:"f",t:"Klim vandaag {n} verdiepingen (Watch telt mee)",n:[10,15,25,35]},
+ {id:"w01",cat:B,s:"VIT",w:1,m:"rm",t:"Sluit vandaag je Bewegen-ring"},
+ {id:"w02",cat:B,s:"VIT",w:1,m:"rings",t:"Sluit vandaag alle drie je ringen",h:"Bewegen, Trainen en Staan."},
+ {id:"w03",cat:B,s:"VIT",w:1,m:"re",t:"Sluit vandaag je Trainen-ring"},
+ {id:"w04",cat:B,s:"VIT",w:1,m:"rs",t:"Sluit vandaag je Staan-ring",h:"Sta elk uur minstens een minuut op en beweeg."},
+ {id:"w06",cat:B,s:"AGI",w:1,m:"w",t:"Doe vandaag {n} workouts met je Watch",n:[1,2,2,3],h:"Elke workout van minimaal 10 minuten telt."},
+ {id:"w07",cat:B,s:"AGI",w:1,t:"Doe {n} minuten Mindfulness op je Watch",n:[3,5,10,15],h:"Open de Mindfulness-app en kies Ademhalen of Reflecteren."},
+ {id:"w08",cat:B,s:"VIT",w:1,t:"Sluit je Bewegen-ring vóór 18:00"},
  {id:"w09",cat:B,s:"VIT",w:1,m:"s",t:"Zet vandaag {n} stappen, gemeten door je Watch",n:[9000,11000,13000,16000]},
  {id:"w10",cat:B,s:"AGI",w:1,m:"d",t:"Wandel of ren {n} km met een Watch-workout",n:[5,7,10,14],u:"km"},
  {id:"i47",cat:I,s:"CHA",t:"Zeg {n} keer hardop 'dankjewel, dat waardeer ik' en meen het",n:[2,3,5,8],c:1},
@@ -503,6 +517,7 @@ const TITLES=[
  {id:"c40",n:"Hart van de Wijk",d:"40 communityquests",ok:s=>s.counts.community>=40},
  {id:"i40",n:"Magneet",d:"40 interactiequests",ok:s=>s.counts.interactie>=40},
  {id:"q100",n:"Honderd Quests",d:"100 quests voltooid",ok:s=>s.totalDone>=100},
+ {id:"rg7",n:"Drie Ringen",d:"7 dagen op rij alle ringen gesloten",ok:s=>(s.ringBest||0)>=7},
  {id:"g1",n:"Poortloper",d:"Eerste extra poort gezuiverd",ok:s=>(s.gatesCleared||0)>=1},
  {id:"red",n:"Rode Overlever",d:"Een rode poort gezuiverd",ok:s=>(s.redCleared||0)>=1},
  {id:"cb5",n:"Kettingreactie",d:"Combo van 5 poorten op één dag",ok:s=>(s.bestCombo||0)>=5},
@@ -595,8 +610,8 @@ function streakMult(){return 1+Math.min(S.streak,10)*0.05;}
 function complete(i){
   const t=S.today;if(t.done[i])return;
   const q=t.offer[i];t.done[i]=true;
-  const ver=watchMet(q);if(ver)q.verified=true;
-  const x=Math.round(q.xp*streakMult()*(ver?1.1:1));
+  if(watchMet(q))q.verified=true;
+  const x=Math.round(q.xp*streakMult());
   S.stats[q.s]+=q.hidden?2:1;
   S.counts[q.cat]++;S.totalDone++;if(q.hidden)S.hiddenDone++;
   S.recent.unshift({d:t.date,text:q.text,xp:x,cat:q.cat});S.recent=S.recent.slice(0,40);
@@ -619,39 +634,39 @@ function checkPerfect(){
   queue.push({type:"daily",bonus});gainXp(bonus);
 }
 
-/* ===================== APPLE WATCH ===================== */
-// De Opdrachten-app leest je Watch-gegevens uit Gezondheid en geeft een code door, bv.
-// HW1.t20261019.s8432.e32.k540.h9.f6.d62.c0.w1.m5  (d en c in tienden van een km)
-const WLBL={s:"stappen",e:"min training",k:"kcal",h:"sta-uren",f:"verdiepingen",d:"km lopen",c:"km fietsen",w:"workouts",m:"min mindfulness"};
-function parseWatch(str){
-  const mt=String(str||"").match(/HW1[._][0-9a-z._]+/i);if(!mt)return null;
-  const o={};mt[0].split(/[._]/).slice(1).forEach(tk=>{const m2=tk.match(/^([a-z])(\d+)$/i);if(m2)o[m2[1].toLowerCase()]=+m2[2];});
-  if(!o.t)return null;const ds=String(o.t);o.date=ds.slice(0,4)+"-"+ds.slice(4,6)+"-"+ds.slice(6,8);delete o.t;return o;}
-function applyWatch(str,silent){
-  const o=parseWatch(str);if(!o){if(!silent)toast("Geen geldige Watch-code gevonden. Voer de opdracht Hunter Sync opnieuw uit.");return false;}
-  if(o.date!==dkey()){toast("Deze Watch-gegevens zijn van "+o.date+". Synchroniseer opnieuw voor vandaag.");return false;}
-  if(!S.settings.watch){S.settings.watch=true;}
-  S.watchData=Object.assign({},o,{at:Date.now()});save();render();
-  const n=watchReadyCount();toast(n?`⌚ Gesynchroniseerd. ${n} ${n===1?"quest is":"quests zijn"} klaar om te claimen.`:"⌚ Watch-gegevens bijgewerkt");return true;}
+/* ===================== APPLE WATCH (snelinvoer) ===================== */
+// Je neemt je ringen, stappen, kilometers en workouts over uit de Fitness-app of van je Watch.
 function wd(){const w=S.watchData;return w&&w.date===dkey()?w:null;}
+function wdEdit(){let w=wd();if(!w){w=S.watchData={date:dkey(),rm:0,re:0,rs:0,s:0,d:0,w:0};}return w;}
 function watchVal(q){const w=wd();if(!w||!q.m)return 0;
-  if(q.m==="rings")return (w.k>=S.settings.move?1:0)+(w.e>=S.settings.exgoal?1:0)+(w.h>=S.settings.stand?1:0);
-  if(q.m==="d"||q.m==="c")return (w[q.m]||0)/10;return w[q.m]||0;}
-function watchTarget(q){return q.m==="rings"?3:(q.target||q.n||0);}
+  if(q.m==="rings")return (w.rm?1:0)+(w.re?1:0)+(w.rs?1:0);
+  return +w[q.m]||0;}
+function watchTarget(q){return q.m==="rings"?3:(q.m==="rm"||q.m==="re"||q.m==="rs")?1:(q.target||q.n||0);}
 function watchMet(q){return !!(S.settings.watch&&q.m&&wd()&&watchVal(q)>=watchTarget(q));}
 function watchReadyCount(){const t=S.today;if(!t)return 0;let n=t.chosen.filter(i=>!t.done[i]&&watchMet(t.offer[i])).length;const G=t.gate;if(G&&G.active&&watchMet(G.active))n++;return n;}
 function watchProgress(q){if(!S.settings.watch||!q.m)return "";const v=watchVal(q),tg=watchTarget(q),w=wd();
-  const unit=q.m==="rings"?"ringen":q.u||WLBL[q.m]||"";const fv=q.m==="d"||q.m==="c"?v.toLocaleString("nl-NL",{maximumFractionDigits:1}):fmt(v);
-  return `<div class="watch-prog"><div class="watch-row"><span>⌚ ${w?`${fv} / ${fmt(tg)} ${unit}`:"Nog niet gesynchroniseerd vandaag"}</span>${w&&v>=tg?'<b>Gehaald</b>':""}</div>${w?`<div class="bar wbar"><i style="width:${Math.min(100,v/tg*100)}%"></i></div>`:""}</div>`;}
+  const ring=q.m==="rm"||q.m==="re"||q.m==="rs";
+  const txt=!w?"Vul hierboven je Watch-stand in":ring?(v?"Ring gesloten":"Ring nog open"):q.m==="rings"?`${v} / 3 ringen`:`${q.m==="d"?v.toLocaleString("nl-NL",{maximumFractionDigits:1}):fmt(v)} / ${fmt(tg)} ${q.u||({s:"stappen",w:"workouts"})[q.m]||""}`;
+  return `<div class="watch-prog"><div class="watch-row"><span>⌚ ${txt}</span>${w&&v>=tg?'<b>Gehaald</b>':""}</div>${w&&!ring?`<div class="bar wbar"><i style="width:${Math.min(100,v/tg*100)}%"></i></div>`:""}</div>`;}
+function ringStreakCheck(){
+  const w=wd();if(!w||!(w.rm&&w.re&&w.rs)||S.ringAwarded===dkey())return;
+  S.ringStreak=(S.ringLast===addDays(dkey(),-1))?(S.ringStreak||0)+1:1;
+  S.ringLast=dkey();S.ringAwarded=dkey();S.ringBest=Math.max(S.ringBest||0,S.ringStreak);
+  const bonus=20+5*Math.min(S.ringStreak,10);
+  queue.push({type:"rings",bonus,streak:S.ringStreak});gainXp(bonus);checkTitles();
+}
 function watchBar(){
-  if(!S.settings.watch)return "";const w=wd();
-  const ago=w?new Date(w.at).toLocaleTimeString("nl-NL",{hour:"2-digit",minute:"2-digit"}):null;
-  return `<section class="win watch-win stack"><div class="today-head"><div><span class="sys-label">[ Apple Watch ]</span><div class="small muted">${w?`Laatste sync ${ago}`:"Vandaag nog niet gesynchroniseerd"}</div></div><button class="btn ghost watch-btn" data-act="wpaste">Watch-data plakken</button></div>
-   ${w?`<div class="watch-stats"><span><b>${fmt(w.s||0)}</b> stappen</span><span><b>${w.e||0}</b> min</span><span><b>${w.k||0}</b> kcal</span><span><b>${w.h||0}</b> sta-uur</span></div>`:`<p class="muted small" style="margin:0">Voer de opdracht <b>Hunter Sync</b> uit en tik daarna op Watch-data plakken.</p>`}
-   <input type="text" id="wcode" class="wcode" placeholder="Of plak hier de Watch-code" autocomplete="off" autocapitalize="off" spellcheck="false"></section>`;}
-window.addEventListener("hashchange",()=>{if(/HW1/i.test(location.hash)){applyWatch(decodeURIComponent(location.hash));try{history.replaceState(null,"",location.pathname+location.search);}catch(e){}}});
-document.addEventListener("change",ev=>{const id=ev.target&&ev.target.id,map={"g-move":"move","g-ex":"exgoal","g-st":"stand"};if(map[id]){const v=Math.max(1,Math.round(+ev.target.value||0));S.settings[map[id]]=v;save();toast("Doel opgeslagen");}});
-document.addEventListener("input",ev=>{if(ev.target&&ev.target.id==="wcode"&&/HW1/i.test(ev.target.value)){const v=ev.target.value;ev.target.value="";applyWatch(v);}});
+  if(!S.settings.watch)return "";const w=wd()||{rm:0,re:0,rs:0,s:0,d:0,w:0};
+  const ring=(k,lbl,cls)=>`<button class="ring-btn ${cls}${w[k]?" on":""}" data-act="wring" data-k="${k}" aria-pressed="${!!w[k]}"><span class="ring-dot"></span><span>${lbl}</span></button>`;
+  const rs=S.ringLast===dkey()||S.ringLast===addDays(dkey(),-1)?(S.ringStreak||0):0;
+  return `<section class="win watch-win stack"><div class="today-head"><div><span class="sys-label">[ Apple Watch · vandaag ]</span><div class="small muted">Neem over uit de Fitness-app of van je Watch</div></div><div class="timer">Ringstreak<b style="color:var(--gold)">${rs}</b></div></div>
+   <div class="rings">${ring("rm","Bewegen","r-move")}${ring("re","Trainen","r-ex")}${ring("rs","Staan","r-stand")}</div>
+   <div class="quick">
+    <div class="field"><label for="wq-s">Stappen</label><input type="number" inputmode="numeric" id="wq-s" placeholder="0" value="${w.s||""}"></div>
+    <div class="field"><label for="wq-d">Km gelopen</label><input type="number" inputmode="decimal" step="0.1" id="wq-d" placeholder="0" value="${w.d||""}"></div>
+    <div class="field"><label>Workouts</label><div class="stepper"><button class="cbtn" data-act="wwk" data-v="-1" aria-label="Eén workout minder">−</button><b>${w.w||0}</b><button class="cbtn" data-act="wwk" data-v="1" aria-label="Eén workout meer">+</button></div></div>
+   </div></section>`;}
+document.addEventListener("change",ev=>{const id=ev.target&&ev.target.id,map={"wq-s":"s","wq-d":"d"};if(map[id]){const w=wdEdit();let v=parseFloat(String(ev.target.value).replace(",","."))||0;w[map[id]]=map[id]==="d"?Math.round(Math.max(0,v)*10)/10:Math.max(0,Math.round(v));w.at=Date.now();save();render();const n=watchReadyCount();if(n)toast(`⌚ ${n} ${n===1?"quest is":"quests zijn"} klaar om te claimen`);}});
 
 /* ===================== POORTEN ===================== */
 // Na de 3 dagquests krijg je een poortsleutel. Elke gezuiverde poort geeft een nieuwe sleutel: je kunt eindeloos door.
@@ -681,8 +696,7 @@ function openGate(slot){
 }
 function clearGate(){
   const G=gateState(),q=G.active;if(!q)return;
-  const ver=watchMet(q);
-  const x=Math.round(q.xp*gateMult()*streakMult()*(ver?1.1:1)),pts=q.rar==="rood"?2:1;
+  const x=Math.round(q.xp*gateMult()*streakMult()),pts=q.rar==="rood"?2:1;
   S.stats[q.s]+=pts;S.counts[q.cat]++;S.totalDone++;
   S.gatesCleared=(S.gatesCleared||0)+1;if(q.rar==="rood")S.redCleared=(S.redCleared||0)+1;
   G.combo++;G.best=Math.max(G.best,G.combo);G.cleared++;G.keys++;G.active=null;S.bestCombo=Math.max(S.bestCombo||0,G.combo);
@@ -1115,7 +1129,7 @@ function questsView(){
   }else if(P&&P.mode!=="hard"&&!P.ack){h+=`<section class="win stack"><span class="sys-label">[ Systeem · Rustdag ]</span><p style="margin:0">Je hebt een dag gemist. De strafmodus staat uit, dus je streak van <b>${P.lost}</b> blijft bevroren staan.</p><button class="btn ghost" data-act="ackpen">Verder</button></section>`;}
   const chosenMode=t.chosen.length===3;
   h+=watchBar();
-  if(!S.settings.watch&&!S.watchHintOff)h+=`<section class="win watch-win stack"><span class="sys-label">[ Apple Watch · optioneel ]</span><p style="margin:0">Heb je een Apple Watch? Koppel hem, dan vullen stappen, ringen en workouts je quests automatisch. Bevestigde quests geven 10% extra XP.</p><div class="actions"><button class="btn ghost" data-act="whint">Niet nu</button><button class="btn" data-act="wgo">Koppelen</button></div></section>`;
+  if(!S.settings.watch&&!S.watchHintOff)h+=`<section class="win watch-win stack"><span class="sys-label">[ Apple Watch · optioneel ]</span><p style="margin:0">Heb je een Apple Watch? Zet de Watch-quests aan. Je vult je ringen en stappen in met een paar tikken, en wie alle ringen sluit bouwt een ringstreak op.</p><div class="actions"><button class="btn ghost" data-act="whint">Niet nu</button><button class="btn" data-act="wtoggle">Aanzetten</button></div></section>`;
   h+=`<div class="today-head"><div><span class="sys-label">[ Dagelijkse quest ]</span><h2>${chosenMode?"Je quests van vandaag":"Kies 3 van de 7"}</h2></div><div class="timer">Reset over<b id="timer">${timeLeft()}</b></div></div>`;
   if(!chosenMode){
     h+=`<p class="muted small" style="margin:0">Het systeem biedt je vandaag zeven quests aan. Kies er drie en rond ze vóór middernacht af.</p><div class="qlist">`;
@@ -1128,9 +1142,9 @@ function questsView(){
     h+=`<div class="qlist">`;
     t.chosen.forEach(i=>{const q=t.offer[i],d=!!t.done[i];
       h+=`<article class="q${d?" done":""}${q.hidden?" hidden-q":""}" data-cat="${q.cat}">${qMeta(q)}<div class="q-text">${esc(q.text)}</div>${q.h&&!d?`<div class="q-hint">${esc(q.h)}</div>`:""}`;
-      if(d){h+=`<div class="sys-label" style="color:var(--ok)">✓ Voltooid${q.verified?" · ⌚ geverifieerd":""}</div>`;}
+      if(d){h+=`<div class="sys-label" style="color:var(--ok)">✓ Voltooid${q.verified?" · ⌚ via Watch":""}</div>`;}
       else if(q.m&&S.settings.watch&&!q.target){h+=watchProgress(q);const ok=watchMet(q),cf=t.confirm===i;
-        h+=ok?`<button class="btn btn-done gold" data-act="done" data-i="${i}">Claim ${Math.round(q.xp*streakMult()*1.1)} XP · geverifieerd</button>`:`<button class="btn btn-done${cf?" gold":""}" data-act="done" data-i="${i}">${cf?"Tik nogmaals om te bevestigen":"Toch handmatig afvinken"}</button>`;}
+        h+=ok?`<button class="btn btn-done gold" data-act="done" data-i="${i}">Claim ${Math.round(q.xp*streakMult())} XP</button>`:`<button class="btn btn-done${cf?" gold":""}" data-act="done" data-i="${i}">${cf?"Tik nogmaals om te bevestigen":"Toch handmatig afvinken"}</button>`;}
       else if(q.target){const p=Math.max(t.prog[i]||0,S.settings.watch&&q.m?watchVal(q):0),st=q.step||(q.target>=40?[1,10]:[1,5]);
         h+=`<div class="counter"><div class="counter-row"><span class="count-num">${fmt(p)} <small>/ ${fmt(q.target)}</small></span>
           <button class="cbtn" data-act="cnt" data-i="${i}" data-v="-${st[0]}" aria-label="min ${st[0]}">−</button>
@@ -1138,7 +1152,7 @@ function questsView(){
           <button class="cbtn" data-act="cnt" data-i="${i}" data-v="${st[1]}">+${st[1]}</button></div>
           <div class="bar cbar"><i style="width:${Math.min(100,p/q.target*100)}%"></i></div></div>`;
         if(S.settings.watch&&q.m)h+=watchProgress(q);
-        if(p>=q.target)h+=`<button class="btn btn-done${watchMet(q)?" gold":""}" data-act="done" data-i="${i}">Claim ${Math.round(q.xp*streakMult()*(watchMet(q)?1.1:1))} XP${watchMet(q)?" · geverifieerd":""}</button>`;}
+        if(p>=q.target)h+=`<button class="btn btn-done${watchMet(q)?" gold":""}" data-act="done" data-i="${i}">Claim ${Math.round(q.xp*streakMult())} XP</button>`;}
       else{const cf=t.confirm===i;h+=`<button class="btn btn-done${cf?" gold":""}" data-act="done" data-i="${i}">${cf?"Tik nogmaals om te bevestigen":"Markeer als voltooid"}</button>`;}
       h+=`</article>`;});
     h+=`</div>`;
@@ -1181,20 +1195,7 @@ function logView(){
   const days=[["","Geen"],[1,"Ma"],[2,"Di"],[3,"Wo"],[4,"Do"],[5,"Vr"]];
   h+=`<section class="win stack" id="watch-settings"><span class="sys-label">[ Apple Watch ]</span>
    <button class="btn ${S.settings.watch?"":"ghost"}" data-act="wtoggle" aria-pressed="${S.settings.watch}">${S.settings.watch?"Aan: Watch-quests en automatische voortgang":"Uit: de app werkt zonder Watch"}</button>
-   ${S.settings.watch?`<div class="goal-grid"><div class="field"><label for="g-move">Bewegen (kcal)</label><input type="number" inputmode="numeric" id="g-move" value="${S.settings.move}"></div><div class="field"><label for="g-ex">Trainen (min)</label><input type="number" inputmode="numeric" id="g-ex" value="${S.settings.exgoal}"></div><div class="field"><label for="g-st">Staan (uur)</label><input type="number" inputmode="numeric" id="g-st" value="${S.settings.stand}"></div></div>
-   <p class="muted small" style="margin:0">Neem dezelfde doelen over als in de Activiteit-app op je iPhone.</p>
-   <details class="howto"><summary>Opdracht "Hunter Sync" maken (eenmalig, ±10 min)</summary>
-   <ol>
-    <li>Open de app <b>Opdrachten</b>, tik op <b>+</b> en noem de opdracht <b>Hunter Sync</b>.</li>
-    <li>Voeg per meting de actie <b>Zoek naar gezondheidsmonsters</b> toe: Type <i>Stappen</i>, Begindatum <i>is vandaag</i>, Groepeer op <i>Dag</i>. Daarna <b>Bereken statistieken → Som</b>. Herhaal voor: Trainingsminuten, Actieve energie, Sta-uren, Opgeklommen trappen, Loop- + hardloopafstand (km), Fietsafstand (km) en Mindfulnessminuten. De namen kunnen per iOS-versie iets verschillen.</li>
-    <li>Voeg <b>Zoek naar workouts</b> toe met Begindatum <i>is vandaag</i> en <b>Tel</b> het aantal.</li>
-    <li>Rond de afstanden af naar tienden en vermenigvuldig ze met 10 (actie <b>Bereken</b>). Rond alles af met <b>Rond getal af</b>.</li>
-    <li>Zet de datum om met <b>Formatteer datum</b>, aangepast formaat <code>yyyyMMdd</code>.</li>
-    <li>Voeg <b>Tekst</b> toe: <code>HW1.t[datum].s[stappen].e[training].k[kcal].h[sta-uren].f[trappen].d[afstand×10].c[fiets×10].w[workouts].m[mindful]</code></li>
-    <li>Voeg <b>Kopieer naar klembord</b> toe, en als laatste <b>Toon melding</b>: "Open Hunter en tik op Watch-data plakken".</li>
-   </ol>
-   <p class="muted small" style="margin:0">Tip: koppel Hunter Sync aan <b>Tik op achterkant</b> (Instellingen → Toegankelijkheid → Aanraken) of zet hem als widget op je beginscherm. Dan synchroniseer je met één tik.</p>
-   </details>`:`<p class="muted small" style="margin:0">Zet aan om quests te krijgen die je Apple Watch meet, zoals ringen sluiten, workouts en mindfulness. Gehaalde quests met Watch-bewijs geven 10% extra XP.</p>`}
+   <p class="muted small" style="margin:0">${S.settings.watch?"Bovenaan het Quests-scherm vul je elke dag je ringen, stappen, kilometers en workouts in. Dat kost zo'n 15 seconden. Sluit je alle drie de ringen, dan groeit je ringstreak en krijg je extra XP.":"Zet aan voor quests rond je Apple Watch: ringen sluiten, stappen, kilometers en workouts. Je vult je Watch-stand zelf in met een paar tikken."}</p>
   </section>`;
   h+=`<section class="win stack"><span class="sys-label">[ Instellingen ]</span>
    <div class="field"><label>Strafmodus</label>
@@ -1208,7 +1209,7 @@ function logView(){
    <p class="muted small" style="margin:0">Op je beginscherm zetten: open deze pagina in Safari, tik op Deel en kies <b>Zet op beginscherm</b>.</p>
    <p class="muted small" style="margin:0" id="syncinfo">Je voortgang staat alleen op deze telefoon, niet in de cloud. Maak af en toe een back-up en bewaar de code in je notities.</p>
    <button class="btn danger" data-act="reset">${resetArm?"Tik nogmaals: alles wissen":"Begin opnieuw"}</button>
-   <p class="muted small" style="margin:0;text-align:center">Versie 1.3 · met Apple Watch-koppeling</p></section>`;
+   <p class="muted small" style="margin:0;text-align:center">Versie 1.4 · Watch-snelinvoer</p></section>`;
   return h;
 }
 let resetArm=false;
@@ -1258,6 +1259,7 @@ function flush(){
   if(e.type==="daily")inner=`<span class="sys-label">[ Systeem ]</span><div class="big gold">QUEST VOLTOOID</div><p style="margin:0">Dagbonus <b style="color:var(--gold)">+${e.bonus} XP</b><br>Streak: ${S.streak} ${S.streak===1?"dag":"dagen"}<br><b style="color:var(--line)">Poortsleutel ontvangen</b></p>`;
   if(e.type==="gate"){const g=GATES[e.rar];inner=`<span class="sys-label">[ Systeem · Poort geopend ]</span><div class="big" style="color:${g.c};text-shadow:0 0 18px ${g.c};font-size:34px">${g.n.toUpperCase()}</div><p style="margin:0">${g.d}</p>`;}
   if(e.type==="cleared"){const g=GATES[e.rar];inner=`<span class="sys-label">[ Systeem ]</span><div class="big" style="color:${g.c};text-shadow:0 0 18px ${g.c};font-size:32px">POORT GEZUIVERD</div><p style="margin:0"><b style="color:var(--gold)">+${e.x} XP</b> · combo ${e.combo}<br>Je krijgt een nieuwe poortsleutel.</p>`;}
+  if(e.type==="rings")inner=`<span class="sys-label">[ Systeem · Ringen ]</span><div class="big" style="color:#ff375f;text-shadow:0 0 18px #ff375f;font-size:34px">ALLE RINGEN DICHT</div><p style="margin:0">Ringstreak: <b style="color:var(--gold)">${e.streak} ${e.streak===1?"dag":"dagen"}</b><br>Bonus <b style="color:var(--gold)">+${e.bonus} XP</b></p>`;
   if(e.type==="title")inner=`<span class="sys-label">[ Systeem · Titel ]</span><div class="big gold" style="font-size:30px">« ${esc(e.t.n)} »</div><p style="margin:0">${esc(e.t.d)}</p>`;
   $("#layer").innerHTML=`<div class="overlay" data-act="close"><div class="win">${inner}<button class="btn" data-act="close">OK</button></div></div>`;
 }
@@ -1279,11 +1281,9 @@ document.addEventListener("click",ev=>{
   if(a==="title"){S.activeTitle=el.dataset.t;save();render();return;}
   if(a==="whint"){S.watchHintOff=true;save();render();toast("Je vindt de Watch-koppeling altijd onder Logboek");return;}
   if(a==="wgo"){tab="log";render();const w=$("#watch-settings");if(w)w.scrollIntoView({behavior:"smooth",block:"start"});return;}
-  if(a==="wtoggle"){S.settings.watch=!S.settings.watch;if(t&&!t.chosen.length){t.offer=genOffer(t.date,t.rerolled?1:0);t.sel=[];}save();render();toast(S.settings.watch?"Apple Watch aan":"Apple Watch uit. Alles werkt gewoon zonder.");return;}
-  if(a==="wpaste"){const inp=$("#wcode");
-    const fallback=()=>{if(inp){inp.focus();toast("Houd het veld ingedrukt en kies Plak");}};
-    try{if(navigator.clipboard&&navigator.clipboard.readText){navigator.clipboard.readText().then(txt=>{if(!applyWatch(txt,true))fallback();},fallback);}else fallback();}catch(e){fallback();}
-    return;}
+  if(a==="wtoggle"){S.settings.watch=!S.settings.watch;if(t&&!t.chosen.length){t.offer=genOffer(t.date,t.rerolled?1:0);t.sel=[];}save();render();toast(S.settings.watch?"Watch-quests aan. Vul bovenaan je ringen en stappen in.":"Watch-quests uit. Alles werkt gewoon zonder.");if(S.settings.watch&&tab!=="quests"){tab="quests";render();window.scrollTo(0,0);}return;}
+  if(a==="wring"){const w=wdEdit(),k=el.dataset.k;w[k]=w[k]?0:1;w.at=Date.now();ringStreakCheck();save();render();flush();return;}
+  if(a==="wwk"){const w=wdEdit();w.w=Math.max(0,(w.w||0)+(+el.dataset.v));w.at=Date.now();save();render();return;}
   if(a==="gopen"){openGate(i);return;}
   if(a==="gcnt"){const q=gateState().active;if(!q)return;q.prog=Math.max(0,Math.min(q.target,q.prog+(+el.dataset.v)));save();render();return;}
   if(a==="gdone"){const q=gateState().active;if(!q)return;if(!q.target&&!watchMet(q)&&!q.confirm){q.confirm=true;render();return;}clearGate();return;}
@@ -1312,7 +1312,7 @@ async function initCloud(){try{if(navigator.storage&&navigator.storage.persist)a
 /* ===================== START ===================== */
 function upgrade(){if(S.today&&S.today.perfect&&!S.today.gate)gateState().keys=1;if(S.poolV!==2){S.poolV=2;if(S.today&&!S.today.chosen.length){S.today.offer=genOffer(S.today.date,S.today.rerolled?1:0);S.today.sel=[];}}}
 function adopt(o){S=migrate(Object.assign(fresh(),{poolV:1},o));upgrade();}
-upgrade();ensureDay();save();render();if(/HW1/i.test(location.hash)){applyWatch(decodeURIComponent(location.hash));try{history.replaceState(null,"",location.pathname+location.search);}catch(e){}}if(!S.look)openCreator(true);
+upgrade();ensureDay();save();render();if(!S.look)openCreator(true);
 setInterval(()=>{const tm=$("#timer");if(tm)tm.textContent=timeLeft();if(ensureDay()){render();return;}const G=S.today&&S.today.gate,q=G&&G.active;if(q&&q.deadline){if(Date.now()>q.deadline)abandonGate("tijd");else{const gt=$("#gtimer");if(gt)gt.textContent=gateTimeLeft(q);}}},1000);
 document.addEventListener("visibilitychange",()=>{if(!document.hidden&&ensureDay())render();});
 initCloud();

@@ -38,4 +38,4 @@ Het geïnstalleerde icoon heeft zijn eigen opslag, los van Safari en van de vers
 - **Lettertypen:** die worden de eerste keer online geladen en daarna offline bewaard.
 
 ## Apple Watch (optioneel)
-Zet in de app onder **Logboek → Apple Watch** de koppeling aan. Daar staat ook hoe je in de app Opdrachten de opdracht **Hunter Sync** maakt. Die leest je Watch-gegevens uit Gezondheid en zet een code op je klembord. In Hunter tik je op **Watch-data plakken**. Je gegevens gaan nergens anders heen.
+Tik op het Quests-scherm bij de kaart Apple Watch op **Aanzetten**. Daarna vul je bovenaan elke dag je ringen, stappen, kilometers en workouts in, overgenomen uit de Fitness-app of van je Watch. Sluit je alle drie de ringen, dan groeit je ringstreak.
