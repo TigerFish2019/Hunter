@@ -36,3 +36,6 @@ Het geïnstalleerde icoon heeft zijn eigen opslag, los van Safari en van de vers
 - **Hetzelfde adres houden:** de opslag hoort bij het adres. Zet je de app later op een ander adres, gebruik dan de back-upcode om je voortgang over te zetten.
 - **Updates:** vervang de bestanden op Netlify door een nieuwe versie en verhoog `VERSION` in `sw.js`. De app werkt zichzelf bij zodra hij online is.
 - **Lettertypen:** die worden de eerste keer online geladen en daarna offline bewaard.
+
+## Apple Watch (optioneel)
+Zet in de app onder **Logboek → Apple Watch** de koppeling aan. Daar staat ook hoe je in de app Opdrachten de opdracht **Hunter Sync** maakt. Die leest je Watch-gegevens uit Gezondheid en zet een code op je klembord. In Hunter tik je op **Watch-data plakken**. Je gegevens gaan nergens anders heen.

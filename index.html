@@ -167,6 +167,22 @@ textarea{min-height:80px;font-family:ui-monospace,Menlo,monospace;font-size:12px
 input:focus,textarea:focus{outline:none;border-color:var(--line);box-shadow:0 0 10px rgba(61,180,255,.3)}
 .stack{display:flex;flex-direction:column;gap:12px}
 .small{font-size:13px}
+.watch-win{border-color:#2a4d72}
+.watch-win .sys-label{white-space:nowrap}
+.watch-btn{min-height:38px;padding:0 12px;font-size:12px;letter-spacing:.08em;flex:none}
+.watch-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.watch-stats b{display:block;font-family:var(--f-sys);font-size:17px;color:var(--ink);letter-spacing:0;font-variant-numeric:tabular-nums}
+.wcode{font-size:13px;padding:8px 10px}
+.watch-tag{color:#9fe8ff}
+.watch-prog{display:flex;flex-direction:column;gap:5px}
+.watch-row{display:flex;justify-content:space-between;gap:8px;font-family:var(--f-sys);font-size:13px;color:#9fe8ff;font-variant-numeric:tabular-nums}
+.watch-row b{color:var(--ok);letter-spacing:.08em;text-transform:uppercase;font-size:12px}
+.wbar i{background:linear-gradient(90deg,#1aa36a,var(--ok));box-shadow:0 0 10px var(--ok)}
+.goal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.goal-grid input{width:100%;font:inherit;color:var(--ink);background:#060c18;border:1px solid var(--line-dim);padding:10px;border-radius:0}
+.howto summary{font-family:var(--f-sys);font-size:13px;letter-spacing:.06em;color:var(--line);cursor:pointer;padding:6px 0}
+.howto ol{margin:6px 0 10px;padding-left:20px;display:flex;flex-direction:column;gap:8px;font-size:13px;line-height:1.5}
+.howto code{font-size:11px;word-break:break-all;background:#060c18;border:1px solid var(--line-dim);padding:2px 4px;display:inline-block;margin-top:4px}
 .gates{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 .gate{position:relative;aspect-ratio:3/4;max-width:100%;border-radius:999px 999px 6px 6px;border:2px solid var(--line);overflow:hidden;background:#02040a;box-shadow:0 0 18px rgba(61,180,255,.4),inset 0 0 22px rgba(61,180,255,.5);transition:transform .15s}
 .gate-core{position:absolute;inset:-35%;background:conic-gradient(from 0deg,#071a3d,#3db4ff,#0a1430,#9be2ff,#2a1a6a,#071a3d);filter:blur(7px);animation:spin 5s linear infinite;opacity:.9}
@@ -263,16 +279,16 @@ const POOL=[
  {id:"b02",cat:B,s:"STR",t:"Doe in totaal {n} pull-ups",n:[15,25,40,60],c:1,h:"Verdeel over sets. Stop een set één herhaling voordat je techniek breekt."},
  {id:"b03",cat:B,s:"VIT",t:"Doe {n} box squats naar een stoel",n:[20,30,40,50],c:1,h:"Raak de stoel licht aan en kom rustig omhoog. Knieën in lijn met je tenen."},
  {id:"b04",cat:B,s:"VIT",t:"Doe {n} sit-ups",n:[30,50,80,100],c:1},
- {id:"b05",cat:B,s:"VIT",t:"Ren {n} kilometer in rustig tempo",n:[2,3,4,5],u:"km",h:"Kies gras of een bospad als het kan. Dat is zachter voor je knieën."},
- {id:"b06",cat:B,s:"VIT",t:"Wandel {n} kilometer",n:[4,6,8,12],u:"km"},
+ {id:"b05",cat:B,s:"VIT",m:"d",t:"Ren {n} kilometer in rustig tempo",n:[2,3,4,5],u:"km",h:"Kies gras of een bospad als het kan. Dat is zachter voor je knieën."},
+ {id:"b06",cat:B,s:"VIT",m:"d",t:"Wandel {n} kilometer",n:[4,6,8,12],u:"km"},
  {id:"b07",cat:B,s:"VIT",t:"Houd in totaal {n} seconden een plank vast",n:[90,150,240,300],c:1,step:[10,30]},
  {id:"b08",cat:B,s:"AGI",t:"Doe {n} burpees zonder sprong",n:[15,25,35,50],c:1,h:"Stap naar achteren en weer naar voren in plaats van te springen."},
  {id:"b09",cat:B,s:"AGI",t:"Zet {n} zijwaartse stappen met het elastiek om je knieën (banded walks)",n:[20,30,40,60],c:1,h:"Versterkt je heupen. Dat ontlast je knieën."},
- {id:"b10",cat:B,s:"VIT",t:"Loop in totaal {n} verdiepingen de trap op",n:[5,10,15,20],c:1},
+ {id:"b10",cat:B,s:"VIT",m:"f",t:"Loop in totaal {n} verdiepingen de trap op",n:[5,10,15,20],c:1},
  {id:"b11",cat:B,s:"STR",t:"Doe {n} dips op een stoel of bank",n:[20,30,40,60],c:1},
  {id:"b12",cat:B,s:"STR",t:"Doe {n} band pull-aparts",n:[40,60,80,120],c:1,h:"Goed tegen een bolle bureaurug."},
- {id:"b13",cat:B,s:"VIT",t:"Zet vandaag {n} stappen",n:[8000,10000,12000,15000],c:1,step:[500,1000]},
- {id:"b14",cat:B,s:"VIT",t:"Fiets {n} kilometer",n:[8,12,20,30],u:"km",h:"Fietsen is een van de beste trainingen voor gevoelige knieën."},
+ {id:"b13",cat:B,s:"VIT",m:"s",t:"Zet vandaag {n} stappen",n:[8000,10000,12000,15000],c:1,step:[500,1000]},
+ {id:"b14",cat:B,s:"VIT",m:"c",t:"Fiets {n} kilometer",n:[8,12,20,30],u:"km",h:"Fietsen is een van de beste trainingen voor gevoelige knieën."},
  {id:"b15",cat:B,s:"VIT",t:"Doe {n} terminal knee extensions met elastiek, per been",n:[15,20,30,40],c:1,h:"Elastiek achter je knie, knie rustig helemaal strekken. Klassieke knieversterker."},
  {id:"b16",cat:B,s:"AGI",t:"Doe {n} mountain climbers",n:[60,100,150,200],c:1},
  {id:"b17",cat:B,s:"AGI",t:"Doe een stretch-sessie van {n} minuten",n:[10,15,20,30]},
@@ -307,7 +323,7 @@ const POOL=[
  {id:"b46",cat:B,s:"AGI",t:"Dans {n} minuten op je favoriete muziek",n:[10,15,20,30]},
  {id:"b47",cat:B,s:"STR",t:"Doe {n} Romanian deadlifts met de curl bar",n:[20,40,60,80],c:1,h:"Knieën licht gebogen, heupen naar achteren. Dit werkt op je hamstrings, niet op je knieën."},
  {id:"b48",cat:B,s:"STR",t:"Het ritueel: {n} push-ups, {n} sit-ups en {n} box squats",n:[25,40,60,80],c:3},
- {id:"b49",cat:B,s:"VIT",t:"Wandel {n} kilometer door natuur of park",n:[4,6,8,12],u:"km"},
+ {id:"b49",cat:B,s:"VIT",m:"d",t:"Wandel {n} kilometer door natuur of park",n:[4,6,8,12],u:"km"},
  {id:"b50",cat:B,s:"STR",t:"Doe {n} scapula pull-ups aan de stang",n:[15,25,40,50],c:1},
  {id:"b51",cat:B,s:"STR",t:"Doe {n} archer push-ups per kant",n:[3,5,8,12],c:1},
  {id:"b52",cat:B,s:"VIT",t:"Doe {n} step-ups op een lage trede (max. 20 cm)",n:[20,30,50,70],c:1},
@@ -418,6 +434,17 @@ const POOL=[
  {id:"i44",cat:I,s:"CHA",t:"Bedank je partner, huisgenoot of familie voor iets alledaags"},
  {id:"i45",cat:I,s:"CHA",t:"Leer {n} woorden in de taal van een buur of collega en gebruik ze",n:[2,3,5,5],c:1},
  {id:"i46",cat:I,s:"CHA",t:"Onthoud iets wat iemand gisteren vertelde en vraag ernaar"},
+ // Apple Watch (verschijnen alleen als de Watch-koppeling aan staat)
+ {id:"w01",cat:B,s:"VIT",w:1,m:"k",goal:"move",t:"Sluit vandaag je Bewegen-ring ({n} actieve kcal)"},
+ {id:"w02",cat:B,s:"VIT",w:1,m:"rings",t:"Sluit vandaag alle drie je ringen",h:"Bewegen, Trainen en Staan, met de doelen uit je instellingen."},
+ {id:"w03",cat:B,s:"VIT",w:1,m:"e",t:"Train vandaag minstens {n} minuten (Trainen-ring)",n:[30,45,60,75]},
+ {id:"w04",cat:B,s:"STR",w:1,m:"k",t:"Verbrand vandaag {n} actieve kilocalorieën",n:[450,600,800,1000]},
+ {id:"w05",cat:B,s:"VIT",w:1,m:"h",t:"Haal vandaag {n} sta-uren",n:[10,12,12,14],h:"Sta elk uur minstens een minuut op en beweeg."},
+ {id:"w06",cat:B,s:"AGI",w:1,m:"w",t:"Start vandaag {n} workouts op je Watch",n:[1,2,2,3],h:"Elke workout van minimaal 10 minuten telt."},
+ {id:"w07",cat:B,s:"AGI",w:1,m:"m",t:"Doe {n} minuten Mindfulness op je Watch",n:[3,5,10,15],h:"Open de Mindfulness-app en kies Ademhalen of Reflecteren."},
+ {id:"w08",cat:B,s:"VIT",w:1,m:"f",t:"Klim vandaag {n} verdiepingen (Watch telt mee)",n:[10,15,25,35]},
+ {id:"w09",cat:B,s:"VIT",w:1,m:"s",t:"Zet vandaag {n} stappen, gemeten door je Watch",n:[9000,11000,13000,16000]},
+ {id:"w10",cat:B,s:"AGI",w:1,m:"d",t:"Wandel of ren {n} km met een Watch-workout",n:[5,7,10,14],u:"km"},
  {id:"i47",cat:I,s:"CHA",t:"Zeg {n} keer hardop 'dankjewel, dat waardeer ik' en meen het",n:[2,3,5,8],c:1},
  // Thuiswerken en online
  {id:"i48",cat:I,s:"CHA",t:"Zet je camera aan en begin een online overleg met een persoonlijke vraag"},
@@ -497,8 +524,8 @@ const fmt=n=>n.toLocaleString("nl-NL");
 
 /* ===================== STAAT ===================== */
 const KEY="hunter-systeem-v1";
-function fresh(){return{v:1,name:"Hunter",level:1,xp:0,totalXp:0,stats:{STR:10,VIT:10,AGI:10,CHA:10,VER:10},free:0,streak:0,best:0,lastPerfect:null,perfectDays:0,counts:{beweging:0,community:0,interactie:0},totalDone:0,hiddenDone:0,titles:[],activeTitle:null,history:[],recent:[],today:null,penalty:null,seen:{h:0},settings:{penalty:true,office:null},poolV:2,updatedAt:0};}
-function migrate(o){o.settings=Object.assign({penalty:true,office:null},o.settings||{});return o;}
+function fresh(){return{v:1,name:"Hunter",level:1,xp:0,totalXp:0,stats:{STR:10,VIT:10,AGI:10,CHA:10,VER:10},free:0,streak:0,best:0,lastPerfect:null,perfectDays:0,counts:{beweging:0,community:0,interactie:0},totalDone:0,hiddenDone:0,titles:[],activeTitle:null,history:[],recent:[],today:null,penalty:null,seen:{h:0},settings:{penalty:true,office:null,watch:false,move:600,exgoal:30,stand:12},poolV:2,updatedAt:0};}
+function migrate(o){o.settings=Object.assign({penalty:true,office:null,watch:false,move:600,exgoal:30,stand:12},o.settings||{});return o;}
 let S=migrate(load()||fresh());
 let tab="quests", cloud=null, saveT=null;
 function load(){try{const r=localStorage.getItem(KEY);return r?JSON.parse(r):null;}catch(e){return null;}}
@@ -512,22 +539,23 @@ function genOffer(date,salt){
   const tier=tierOf(S.level);
   const [yy,mm,dd]=date.split("-").map(Number);const office=S.settings.office!=null&&new Date(yy,mm-1,dd).getDay()===S.settings.office;
   const okDay=q=>!q.o||office;
-  const pick=(cat,k,only)=>{const base=POOL.filter(q=>q.cat===cat&&okDay(q)&&(!only||q.o));let c=base.filter(q=>!recent.has(q.id));if(c.length<k)c=base.slice();
+  const pick=(cat,k,only,meas)=>{const base=POOL.filter(q=>q.cat===cat&&okDay(q)&&(!only||q.o)&&(!q.w||S.settings.watch)&&(!meas||q.m));let c=base.filter(q=>!recent.has(q.id));if(c.length<k)c=base.slice();
     const out=[];while(out.length<k&&c.length){out.push(c.splice(Math.floor(r()*c.length),1)[0]);}return out;};
   // Kantoordag: één interactiequest is gegarandeerd een kantoorquest
   const offI=office?pick(I,1,true):[];offI.forEach(q=>recent.add(q.id));
-  const tpls=[...pick(B,3),...pick(C,2),...offI,...pick(I,2-offI.length)];
+  let bw=[];if(S.settings.watch){bw=pick(B,1,false,true);bw.forEach(q=>recent.add(q.id));}
+  const tpls=[...bw,...pick(B,3-bw.length),...pick(C,2),...offI,...pick(I,2-offI.length)];
   // schudden
   for(let i=tpls.length-1;i>0;i--){const j=Math.floor(r()*(i+1));[tpls[i],tpls[j]]=[tpls[j],tpls[i]];}
   const hiddenAt=r()<0.14?Math.floor(r()*7):-1;
   return tpls.map((t,i)=>{
-    let n=t.n?t.n[tier]:null, text=t.t.replace(/\{n\}/g,n!=null?fmt(n):"");
+    let n=t.goal?S.settings[t.goal]:t.n?t.n[tier]:null, text=t.t.replace(/\{n\}/g,n!=null?fmt(n):"");
     let mod=null;
-    if(t.cat===B&&t.c&&r()<0.4){mod=MODS[Math.floor(r()*MODS.length)];text+=" "+mod;}
+    if(t.cat===B&&t.c&&!(t.m&&S.settings.watch)&&r()<0.4){mod=MODS[Math.floor(r()*MODS.length)];text+=" "+mod;}
     let xp=BASEXP[t.cat]*(1+0.15*tier)*(mod?1.15:1)*(t.n?1:1.05);
     const hidden=i===hiddenAt; if(hidden)xp*=2;
     const target=t.c?n*t.c:null;
-    return{id:t.id,cat:t.cat,s:t.s,text,h:t.h||null,xp:Math.round(xp/5)*5,target,step:t.step||null,hidden,u:t.u||null};
+    return{id:t.id,cat:t.cat,s:t.s,text,h:t.h||null,xp:Math.round(xp/5)*5,target,step:t.step||null,hidden,u:t.u||null,m:t.m||null,n};
   });
 }
 function ensureDay(){
@@ -567,7 +595,8 @@ function streakMult(){return 1+Math.min(S.streak,10)*0.05;}
 function complete(i){
   const t=S.today;if(t.done[i])return;
   const q=t.offer[i];t.done[i]=true;
-  const x=Math.round(q.xp*streakMult());
+  const ver=watchMet(q);if(ver)q.verified=true;
+  const x=Math.round(q.xp*streakMult()*(ver?1.1:1));
   S.stats[q.s]+=q.hidden?2:1;
   S.counts[q.cat]++;S.totalDone++;if(q.hidden)S.hiddenDone++;
   S.recent.unshift({d:t.date,text:q.text,xp:x,cat:q.cat});S.recent=S.recent.slice(0,40);
@@ -590,6 +619,40 @@ function checkPerfect(){
   queue.push({type:"daily",bonus});gainXp(bonus);
 }
 
+/* ===================== APPLE WATCH ===================== */
+// De Opdrachten-app leest je Watch-gegevens uit Gezondheid en geeft een code door, bv.
+// HW1.t20261019.s8432.e32.k540.h9.f6.d62.c0.w1.m5  (d en c in tienden van een km)
+const WLBL={s:"stappen",e:"min training",k:"kcal",h:"sta-uren",f:"verdiepingen",d:"km lopen",c:"km fietsen",w:"workouts",m:"min mindfulness"};
+function parseWatch(str){
+  const mt=String(str||"").match(/HW1[._][0-9a-z._]+/i);if(!mt)return null;
+  const o={};mt[0].split(/[._]/).slice(1).forEach(tk=>{const m2=tk.match(/^([a-z])(\d+)$/i);if(m2)o[m2[1].toLowerCase()]=+m2[2];});
+  if(!o.t)return null;const ds=String(o.t);o.date=ds.slice(0,4)+"-"+ds.slice(4,6)+"-"+ds.slice(6,8);delete o.t;return o;}
+function applyWatch(str,silent){
+  const o=parseWatch(str);if(!o){if(!silent)toast("Geen geldige Watch-code gevonden. Voer de opdracht Hunter Sync opnieuw uit.");return false;}
+  if(o.date!==dkey()){toast("Deze Watch-gegevens zijn van "+o.date+". Synchroniseer opnieuw voor vandaag.");return false;}
+  if(!S.settings.watch){S.settings.watch=true;}
+  S.watchData=Object.assign({},o,{at:Date.now()});save();render();
+  const n=watchReadyCount();toast(n?`⌚ Gesynchroniseerd. ${n} ${n===1?"quest is":"quests zijn"} klaar om te claimen.`:"⌚ Watch-gegevens bijgewerkt");return true;}
+function wd(){const w=S.watchData;return w&&w.date===dkey()?w:null;}
+function watchVal(q){const w=wd();if(!w||!q.m)return 0;
+  if(q.m==="rings")return (w.k>=S.settings.move?1:0)+(w.e>=S.settings.exgoal?1:0)+(w.h>=S.settings.stand?1:0);
+  if(q.m==="d"||q.m==="c")return (w[q.m]||0)/10;return w[q.m]||0;}
+function watchTarget(q){return q.m==="rings"?3:(q.target||q.n||0);}
+function watchMet(q){return !!(S.settings.watch&&q.m&&wd()&&watchVal(q)>=watchTarget(q));}
+function watchReadyCount(){const t=S.today;if(!t)return 0;let n=t.chosen.filter(i=>!t.done[i]&&watchMet(t.offer[i])).length;const G=t.gate;if(G&&G.active&&watchMet(G.active))n++;return n;}
+function watchProgress(q){if(!S.settings.watch||!q.m)return "";const v=watchVal(q),tg=watchTarget(q),w=wd();
+  const unit=q.m==="rings"?"ringen":q.u||WLBL[q.m]||"";const fv=q.m==="d"||q.m==="c"?v.toLocaleString("nl-NL",{maximumFractionDigits:1}):fmt(v);
+  return `<div class="watch-prog"><div class="watch-row"><span>⌚ ${w?`${fv} / ${fmt(tg)} ${unit}`:"Nog niet gesynchroniseerd vandaag"}</span>${w&&v>=tg?'<b>Gehaald</b>':""}</div>${w?`<div class="bar wbar"><i style="width:${Math.min(100,v/tg*100)}%"></i></div>`:""}</div>`;}
+function watchBar(){
+  if(!S.settings.watch)return "";const w=wd();
+  const ago=w?new Date(w.at).toLocaleTimeString("nl-NL",{hour:"2-digit",minute:"2-digit"}):null;
+  return `<section class="win watch-win stack"><div class="today-head"><div><span class="sys-label">[ Apple Watch ]</span><div class="small muted">${w?`Laatste sync ${ago}`:"Vandaag nog niet gesynchroniseerd"}</div></div><button class="btn ghost watch-btn" data-act="wpaste">Watch-data plakken</button></div>
+   ${w?`<div class="watch-stats"><span><b>${fmt(w.s||0)}</b> stappen</span><span><b>${w.e||0}</b> min</span><span><b>${w.k||0}</b> kcal</span><span><b>${w.h||0}</b> sta-uur</span></div>`:`<p class="muted small" style="margin:0">Voer de opdracht <b>Hunter Sync</b> uit en tik daarna op Watch-data plakken.</p>`}
+   <input type="text" id="wcode" class="wcode" placeholder="Of plak hier de Watch-code" autocomplete="off" autocapitalize="off" spellcheck="false"></section>`;}
+window.addEventListener("hashchange",()=>{if(/HW1/i.test(location.hash)){applyWatch(decodeURIComponent(location.hash));try{history.replaceState(null,"",location.pathname+location.search);}catch(e){}}});
+document.addEventListener("change",ev=>{const id=ev.target&&ev.target.id,map={"g-move":"move","g-ex":"exgoal","g-st":"stand"};if(map[id]){const v=Math.max(1,Math.round(+ev.target.value||0));S.settings[map[id]]=v;save();toast("Doel opgeslagen");}});
+document.addEventListener("input",ev=>{if(ev.target&&ev.target.id==="wcode"&&/HW1/i.test(ev.target.value)){const v=ev.target.value;ev.target.value="";applyWatch(v);}});
+
 /* ===================== POORTEN ===================== */
 // Na de 3 dagquests krijg je een poortsleutel. Elke gezuiverde poort geeft een nieuwe sleutel: je kunt eindeloos door.
 const GATES={
@@ -607,18 +670,19 @@ function openGate(slot){
   const rar=x<red?"rood":x<red+pur?"paars":"blauw";
   const cat=rar==="rood"&&r()<.6?B:[B,C,I][Math.floor(r()*3)];
   const used=new Set([...t.offer.map(q=>q.id),...G.used]),office=isOfficeDay(t.date);
-  let c=POOL.filter(q=>q.cat===cat&&!used.has(q.id)&&(!q.o||office));if(!c.length)c=POOL.filter(q=>q.cat===cat&&!q.o);
+  let c=POOL.filter(q=>q.cat===cat&&!used.has(q.id)&&(!q.o||office)&&(!q.w||S.settings.watch));if(!c.length)c=POOL.filter(q=>q.cat===cat&&!q.o&&!q.w);
   const tp=c[Math.floor(r()*c.length)],base=tierOf(S.level),tier=Math.min(3,base+(rar==="blauw"?0:1));
-  let n=tp.n?tp.n[tier]:null;if(rar==="rood"&&n&&base>=3)n=Math.round(n*1.25);
+  let n=tp.goal?Math.round(S.settings[tp.goal]*(rar==="blauw"?1:1.25)):tp.n?tp.n[tier]:null;if(rar==="rood"&&n&&base>=3&&!tp.goal)n=Math.round(n*1.25);
   const text=tp.t.replace(/\{n\}/g,n!=null?fmt(n):"");
   const xp=Math.round(BASEXP[tp.cat]*(1+0.15*base)*GATES[rar].m/5)*5;
   G.used.push(tp.id);G.keys--;
-  G.active={id:tp.id,cat:tp.cat,s:tp.s,text,h:tp.h||null,xp,target:tp.c?n*tp.c:null,step:tp.step||null,rar,prog:0,confirm:false,deadline:rar==="rood"?Date.now()+2*3600e3:null};
+  G.active={id:tp.id,cat:tp.cat,s:tp.s,text,h:tp.h||null,xp,target:tp.c?n*tp.c:null,step:tp.step||null,m:tp.m||null,n,rar,prog:0,confirm:false,deadline:rar==="rood"?Date.now()+2*3600e3:null};
   queue.push({type:"gate",rar});save();render();flush();
 }
 function clearGate(){
   const G=gateState(),q=G.active;if(!q)return;
-  const x=Math.round(q.xp*gateMult()*streakMult()),pts=q.rar==="rood"?2:1;
+  const ver=watchMet(q);
+  const x=Math.round(q.xp*gateMult()*streakMult()*(ver?1.1:1)),pts=q.rar==="rood"?2:1;
   S.stats[q.s]+=pts;S.counts[q.cat]++;S.totalDone++;
   S.gatesCleared=(S.gatesCleared||0)+1;if(q.rar==="rood")S.redCleared=(S.redCleared||0)+1;
   G.combo++;G.best=Math.max(G.best,G.combo);G.cleared++;G.keys++;G.active=null;S.bestCombo=Math.max(S.bestCombo||0,G.combo);
@@ -635,10 +699,11 @@ function gatesView(){
   let h=`<section class="win stack"><div class="today-head"><div><span class="sys-label">[ Poorten ]</span><h2>${G.active?"Actieve poort":"Kies een poort"}</h2></div><div class="timer">Combo<b style="color:var(--gold)">×${gateMult().toFixed(1)}</b></div></div>`;
   if(G.active){const q=G.active,gt=GATES[q.rar];
     h+=`<article class="q gate-q" data-cat="${q.cat}" style="--c:${gt.c}"><div class="q-meta"><span style="color:${gt.c}">${gt.n}</span><span class="q-stat">+${STATS.find(s=>s.k===q.s).n}</span><span class="q-xp">${Math.round(q.xp*gateMult())} XP</span></div><div class="q-text">${esc(q.text)}</div>${q.h?`<div class="q-hint">${esc(q.h)}</div>`:""}`;
+    if(S.settings.watch&&q.m)h+=watchProgress(q);
     if(q.deadline)h+=`<div class="gate-timer">Poort stort in over <b id="gtimer">${gateTimeLeft(q)}</b></div>`;
     if(q.target){const st=q.step||(q.target>=40?[1,10]:[1,5]);
       h+=`<div class="counter"><div class="counter-row"><span class="count-num">${fmt(q.prog)} <small>/ ${fmt(q.target)}</small></span><button class="cbtn" data-act="gcnt" data-v="-${st[0]}" aria-label="min ${st[0]}">−</button><button class="cbtn" data-act="gcnt" data-v="${st[0]}">+${st[0]}</button><button class="cbtn" data-act="gcnt" data-v="${st[1]}">+${st[1]}</button></div><div class="bar cbar"><i style="width:${Math.min(100,q.prog/q.target*100)}%"></i></div></div>`;
-      if(q.prog>=q.target)h+=`<button class="btn btn-done" data-act="gdone">Zuiver de poort</button>`;}
+      if(Math.max(q.prog,watchMet(q)?q.target:0)>=q.target)h+=`<button class="btn btn-done" data-act="gdone">Zuiver de poort</button>`;}
     else h+=`<button class="btn btn-done${q.confirm?" gold":""}" data-act="gdone">${q.confirm?"Tik nogmaals om te bevestigen":"Zuiver de poort"}</button>`;
     h+=`<button class="btn ghost" data-act="gquit">Verlaat poort</button></article>`;
   }else{
@@ -1036,7 +1101,7 @@ function hud(){
    </div></section>`;
 }
 function timeLeft(){const n=new Date(),m=new Date(n);m.setHours(24,0,0,0);const s=Math.max(0,(m-n)/1000|0);return pad(s/3600|0)+":"+pad((s%3600)/60|0)+":"+pad(s%60);}
-function qMeta(q){const st=STATS.find(s=>s.k===q.s);return `<div class="q-meta"><span class="q-cat">${CATLBL[q.cat]}</span><span class="q-stat">+${st.n}</span>${q.hidden?'<span class="hidden-tag">Verborgen quest</span>':""}<span class="q-xp">${q.xp} XP</span></div>`;}
+function qMeta(q){const st=STATS.find(s=>s.k===q.s);return `<div class="q-meta"><span class="q-cat">${CATLBL[q.cat]}</span><span class="q-stat">+${st.n}</span>${q.hidden?'<span class="hidden-tag">Verborgen quest</span>':""}${S.settings.watch&&q.m?'<span class="watch-tag">⌚ Watch</span>':""}<span class="q-xp">${q.xp} XP</span></div>`;}
 function questsView(){
   const t=S.today;let h=hud();
   const P=S.penalty;
@@ -1049,6 +1114,7 @@ function questsView(){
     else if(!P.ack){h+=`<section class="win stack"><span class="sys-label">[ Systeem ]</span><p style="margin:0">Straf voldaan. Je bent terug op het pad.</p><button class="btn ghost" data-act="ackpen">Sluiten</button></section>`;}
   }else if(P&&P.mode!=="hard"&&!P.ack){h+=`<section class="win stack"><span class="sys-label">[ Systeem · Rustdag ]</span><p style="margin:0">Je hebt een dag gemist. De strafmodus staat uit, dus je streak van <b>${P.lost}</b> blijft bevroren staan.</p><button class="btn ghost" data-act="ackpen">Verder</button></section>`;}
   const chosenMode=t.chosen.length===3;
+  h+=watchBar();
   h+=`<div class="today-head"><div><span class="sys-label">[ Dagelijkse quest ]</span><h2>${chosenMode?"Je quests van vandaag":"Kies 3 van de 7"}</h2></div><div class="timer">Reset over<b id="timer">${timeLeft()}</b></div></div>`;
   if(!chosenMode){
     h+=`<p class="muted small" style="margin:0">Het systeem biedt je vandaag zeven quests aan. Kies er drie en rond ze vóór middernacht af.</p><div class="qlist">`;
@@ -1061,14 +1127,17 @@ function questsView(){
     h+=`<div class="qlist">`;
     t.chosen.forEach(i=>{const q=t.offer[i],d=!!t.done[i];
       h+=`<article class="q${d?" done":""}${q.hidden?" hidden-q":""}" data-cat="${q.cat}">${qMeta(q)}<div class="q-text">${esc(q.text)}</div>${q.h&&!d?`<div class="q-hint">${esc(q.h)}</div>`:""}`;
-      if(d){h+=`<div class="sys-label" style="color:var(--ok)">✓ Voltooid</div>`;}
-      else if(q.target){const p=t.prog[i]||0,st=q.step||(q.target>=40?[1,10]:[1,5]);
+      if(d){h+=`<div class="sys-label" style="color:var(--ok)">✓ Voltooid${q.verified?" · ⌚ geverifieerd":""}</div>`;}
+      else if(q.m&&S.settings.watch&&!q.target){h+=watchProgress(q);const ok=watchMet(q),cf=t.confirm===i;
+        h+=ok?`<button class="btn btn-done gold" data-act="done" data-i="${i}">Claim ${Math.round(q.xp*streakMult()*1.1)} XP · geverifieerd</button>`:`<button class="btn btn-done${cf?" gold":""}" data-act="done" data-i="${i}">${cf?"Tik nogmaals om te bevestigen":"Toch handmatig afvinken"}</button>`;}
+      else if(q.target){const p=Math.max(t.prog[i]||0,S.settings.watch&&q.m?watchVal(q):0),st=q.step||(q.target>=40?[1,10]:[1,5]);
         h+=`<div class="counter"><div class="counter-row"><span class="count-num">${fmt(p)} <small>/ ${fmt(q.target)}</small></span>
           <button class="cbtn" data-act="cnt" data-i="${i}" data-v="-${st[0]}" aria-label="min ${st[0]}">−</button>
           <button class="cbtn" data-act="cnt" data-i="${i}" data-v="${st[0]}">+${st[0]}</button>
           <button class="cbtn" data-act="cnt" data-i="${i}" data-v="${st[1]}">+${st[1]}</button></div>
           <div class="bar cbar"><i style="width:${Math.min(100,p/q.target*100)}%"></i></div></div>`;
-        if(p>=q.target)h+=`<button class="btn btn-done" data-act="done" data-i="${i}">Claim ${Math.round(q.xp*streakMult())} XP</button>`;}
+        if(S.settings.watch&&q.m)h+=watchProgress(q);
+        if(p>=q.target)h+=`<button class="btn btn-done${watchMet(q)?" gold":""}" data-act="done" data-i="${i}">Claim ${Math.round(q.xp*streakMult()*(watchMet(q)?1.1:1))} XP${watchMet(q)?" · geverifieerd":""}</button>`;}
       else{const cf=t.confirm===i;h+=`<button class="btn btn-done${cf?" gold":""}" data-act="done" data-i="${i}">${cf?"Tik nogmaals om te bevestigen":"Markeer als voltooid"}</button>`;}
       h+=`</article>`;});
     h+=`</div>`;
@@ -1109,6 +1178,23 @@ function logView(){
   else{h+=`<ul class="log">`;S.recent.slice(0,15).forEach(r=>{h+=`<li><span class="dot" style="background:var(--cat-${r.cat})"></span><span>${esc(r.text)}<span class="d">${r.d}</span></span><span class="x">+${r.xp}</span></li>`;});h+=`</ul>`;}
   h+=`</section>`;
   const days=[["","Geen"],[1,"Ma"],[2,"Di"],[3,"Wo"],[4,"Do"],[5,"Vr"]];
+  h+=`<section class="win stack"><span class="sys-label">[ Apple Watch ]</span>
+   <button class="btn ${S.settings.watch?"":"ghost"}" data-act="wtoggle" aria-pressed="${S.settings.watch}">${S.settings.watch?"Aan: Watch-quests en automatische voortgang":"Uit: de app werkt zonder Watch"}</button>
+   ${S.settings.watch?`<div class="goal-grid"><div class="field"><label for="g-move">Bewegen (kcal)</label><input type="number" inputmode="numeric" id="g-move" value="${S.settings.move}"></div><div class="field"><label for="g-ex">Trainen (min)</label><input type="number" inputmode="numeric" id="g-ex" value="${S.settings.exgoal}"></div><div class="field"><label for="g-st">Staan (uur)</label><input type="number" inputmode="numeric" id="g-st" value="${S.settings.stand}"></div></div>
+   <p class="muted small" style="margin:0">Neem dezelfde doelen over als in de Activiteit-app op je iPhone.</p>
+   <details class="howto"><summary>Opdracht "Hunter Sync" maken (eenmalig, ±10 min)</summary>
+   <ol>
+    <li>Open de app <b>Opdrachten</b>, tik op <b>+</b> en noem de opdracht <b>Hunter Sync</b>.</li>
+    <li>Voeg per meting de actie <b>Zoek naar gezondheidsmonsters</b> toe: Type <i>Stappen</i>, Begindatum <i>is vandaag</i>, Groepeer op <i>Dag</i>. Daarna <b>Bereken statistieken → Som</b>. Herhaal voor: Trainingsminuten, Actieve energie, Sta-uren, Opgeklommen trappen, Loop- + hardloopafstand (km), Fietsafstand (km) en Mindfulnessminuten. De namen kunnen per iOS-versie iets verschillen.</li>
+    <li>Voeg <b>Zoek naar workouts</b> toe met Begindatum <i>is vandaag</i> en <b>Tel</b> het aantal.</li>
+    <li>Rond de afstanden af naar tienden en vermenigvuldig ze met 10 (actie <b>Bereken</b>). Rond alles af met <b>Rond getal af</b>.</li>
+    <li>Zet de datum om met <b>Formatteer datum</b>, aangepast formaat <code>yyyyMMdd</code>.</li>
+    <li>Voeg <b>Tekst</b> toe: <code>HW1.t[datum].s[stappen].e[training].k[kcal].h[sta-uren].f[trappen].d[afstand×10].c[fiets×10].w[workouts].m[mindful]</code></li>
+    <li>Voeg <b>Kopieer naar klembord</b> toe, en als laatste <b>Toon melding</b>: "Open Hunter en tik op Watch-data plakken".</li>
+   </ol>
+   <p class="muted small" style="margin:0">Tip: koppel Hunter Sync aan <b>Tik op achterkant</b> (Instellingen → Toegankelijkheid → Aanraken) of zet hem als widget op je beginscherm. Dan synchroniseer je met één tik.</p>
+   </details>`:`<p class="muted small" style="margin:0">Zet aan om quests te krijgen die je Apple Watch meet, zoals ringen sluiten, workouts en mindfulness. Gehaalde quests met Watch-bewijs geven 10% extra XP.</p>`}
+  </section>`;
   h+=`<section class="win stack"><span class="sys-label">[ Instellingen ]</span>
    <div class="field"><label>Strafmodus</label>
     <button class="btn ${S.settings.penalty?"danger":"ghost"}" data-act="pmode" aria-pressed="${S.settings.penalty}">${S.settings.penalty?"Aan: gemiste dag = strafquest en XP-verlies":"Uit: gemiste dag bevriest je streak"}</button></div>
@@ -1118,6 +1204,7 @@ function logView(){
    <button class="btn ghost" data-act="name">Naam opslaan</button>
    <div class="field"><label for="bk">Back-upcode</label><textarea id="bk" placeholder="Plak hier een back-upcode om je voortgang terug te zetten"></textarea></div>
    <div class="actions"><button class="btn ghost" data-act="exp">Kopieer back-up</button><button class="btn ghost" data-act="imp">Herstel</button></div>
+   <p class="muted small" style="margin:0">Op je beginscherm zetten: open deze pagina in Safari, tik op Deel en kies <b>Zet op beginscherm</b>.</p>
    <p class="muted small" style="margin:0" id="syncinfo">Je voortgang staat alleen op deze telefoon, niet in de cloud. Maak af en toe een back-up en bewaar de code in je notities.</p>
    <button class="btn danger" data-act="reset">${resetArm?"Tik nogmaals: alles wissen":"Begin opnieuw"}</button></section>`;
   return h;
@@ -1151,7 +1238,7 @@ function render(){
   const app=$("#app");
   app.innerHTML=tab==="create"?createView():tab==="quests"?questsView():tab==="hunter"?hunterView():logView();
   document.querySelectorAll(".tab").forEach(b=>b.setAttribute("aria-selected",b.dataset.tab===tab));
-  const t=S.today,open=t?(t.chosen.length<3?1:t.chosen.filter(i=>!t.done[i]).length||(t.gate&&t.gate.keys&&!t.gate.active?"!":0)):0;
+  const t=S.today,wr=S.settings.watch?watchReadyCount():0,open=wr?"⌚":t?(t.chosen.length<3?1:t.chosen.filter(i=>!t.done[i]).length||(t.gate&&t.gate.keys&&!t.gate.active?"!":0)):0;
   const bq=$("#badge-q");open?bq.setAttribute("data-n",open):bq.removeAttribute("data-n");
   const bh=$("#badge-h");S.free?bh.setAttribute("data-n",S.free):bh.removeAttribute("data-n");
 }
@@ -1185,12 +1272,17 @@ document.addEventListener("click",ev=>{
   if(a==="reroll"){if(t.rerolled)return;t.offer=genOffer(t.date,1);t.sel=[];t.rerolled=true;save();render();toast("Het systeem heeft nieuwe quests gegenereerd");return;}
   if(a==="accept"){if(t.sel.length!==3)return;t.chosen=[...t.sel].sort((x,y)=>x-y);save();render();window.scrollTo(0,0);toast("Quests geaccepteerd. Succes, hunter.");return;}
   if(a==="cnt"){const q=t.offer[i];t.prog[i]=Math.max(0,Math.min(q.target,(t.prog[i]||0)+(+el.dataset.v)));save();render();return;}
-  if(a==="done"){const q=t.offer[i];if(!q.target&&t.confirm!==i){t.confirm=i;render();return;}t.confirm=null;complete(i);return;}
+  if(a==="done"){const q=t.offer[i];if(!q.target&&!watchMet(q)&&t.confirm!==i){t.confirm=i;render();return;}t.confirm=null;complete(i);return;}
   if(a==="pt"){if(!S.free)return;S.free--;S.stats[el.dataset.k]++;save();render();return;}
   if(a==="title"){S.activeTitle=el.dataset.t;save();render();return;}
+  if(a==="wtoggle"){S.settings.watch=!S.settings.watch;if(t&&!t.chosen.length){t.offer=genOffer(t.date,t.rerolled?1:0);t.sel=[];}save();render();toast(S.settings.watch?"Apple Watch aan":"Apple Watch uit. Alles werkt gewoon zonder.");return;}
+  if(a==="wpaste"){const inp=$("#wcode");
+    const fallback=()=>{if(inp){inp.focus();toast("Houd het veld ingedrukt en kies Plak");}};
+    try{if(navigator.clipboard&&navigator.clipboard.readText){navigator.clipboard.readText().then(txt=>{if(!applyWatch(txt,true))fallback();},fallback);}else fallback();}catch(e){fallback();}
+    return;}
   if(a==="gopen"){openGate(i);return;}
   if(a==="gcnt"){const q=gateState().active;if(!q)return;q.prog=Math.max(0,Math.min(q.target,q.prog+(+el.dataset.v)));save();render();return;}
-  if(a==="gdone"){const q=gateState().active;if(!q)return;if(!q.target&&!q.confirm){q.confirm=true;render();return;}clearGate();return;}
+  if(a==="gdone"){const q=gateState().active;if(!q)return;if(!q.target&&!watchMet(q)&&!q.confirm){q.confirm=true;render();return;}clearGate();return;}
   if(a==="gquit"){abandonGate();return;}
   if(a==="look"){const k=el.dataset.k;draft[k]=NUMK.includes(k)?+el.dataset.v:el.dataset.v;render();return;}
   if(a==="pstage"){pStage=+el.dataset.v;render();return;}
@@ -1216,7 +1308,7 @@ async function initCloud(){try{if(navigator.storage&&navigator.storage.persist)a
 /* ===================== START ===================== */
 function upgrade(){if(S.today&&S.today.perfect&&!S.today.gate)gateState().keys=1;if(S.poolV!==2){S.poolV=2;if(S.today&&!S.today.chosen.length){S.today.offer=genOffer(S.today.date,S.today.rerolled?1:0);S.today.sel=[];}}}
 function adopt(o){S=migrate(Object.assign(fresh(),{poolV:1},o));upgrade();}
-upgrade();ensureDay();save();render();if(!S.look)openCreator(true);
+upgrade();ensureDay();save();render();if(/HW1/i.test(location.hash)){applyWatch(decodeURIComponent(location.hash));try{history.replaceState(null,"",location.pathname+location.search);}catch(e){}}if(!S.look)openCreator(true);
 setInterval(()=>{const tm=$("#timer");if(tm)tm.textContent=timeLeft();if(ensureDay()){render();return;}const G=S.today&&S.today.gate,q=G&&G.active;if(q&&q.deadline){if(Date.now()>q.deadline)abandonGate("tijd");else{const gt=$("#gtimer");if(gt)gt.textContent=gateTimeLeft(q);}}},1000);
 document.addEventListener("visibilitychange",()=>{if(!document.hidden&&ensureDay())render();});
 initCloud();
