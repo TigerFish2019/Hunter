@@ -1115,6 +1115,7 @@ function questsView(){
   }else if(P&&P.mode!=="hard"&&!P.ack){h+=`<section class="win stack"><span class="sys-label">[ Systeem · Rustdag ]</span><p style="margin:0">Je hebt een dag gemist. De strafmodus staat uit, dus je streak van <b>${P.lost}</b> blijft bevroren staan.</p><button class="btn ghost" data-act="ackpen">Verder</button></section>`;}
   const chosenMode=t.chosen.length===3;
   h+=watchBar();
+  if(!S.settings.watch&&!S.watchHintOff)h+=`<section class="win watch-win stack"><span class="sys-label">[ Apple Watch · optioneel ]</span><p style="margin:0">Heb je een Apple Watch? Koppel hem, dan vullen stappen, ringen en workouts je quests automatisch. Bevestigde quests geven 10% extra XP.</p><div class="actions"><button class="btn ghost" data-act="whint">Niet nu</button><button class="btn" data-act="wgo">Koppelen</button></div></section>`;
   h+=`<div class="today-head"><div><span class="sys-label">[ Dagelijkse quest ]</span><h2>${chosenMode?"Je quests van vandaag":"Kies 3 van de 7"}</h2></div><div class="timer">Reset over<b id="timer">${timeLeft()}</b></div></div>`;
   if(!chosenMode){
     h+=`<p class="muted small" style="margin:0">Het systeem biedt je vandaag zeven quests aan. Kies er drie en rond ze vóór middernacht af.</p><div class="qlist">`;
@@ -1178,7 +1179,7 @@ function logView(){
   else{h+=`<ul class="log">`;S.recent.slice(0,15).forEach(r=>{h+=`<li><span class="dot" style="background:var(--cat-${r.cat})"></span><span>${esc(r.text)}<span class="d">${r.d}</span></span><span class="x">+${r.xp}</span></li>`;});h+=`</ul>`;}
   h+=`</section>`;
   const days=[["","Geen"],[1,"Ma"],[2,"Di"],[3,"Wo"],[4,"Do"],[5,"Vr"]];
-  h+=`<section class="win stack"><span class="sys-label">[ Apple Watch ]</span>
+  h+=`<section class="win stack" id="watch-settings"><span class="sys-label">[ Apple Watch ]</span>
    <button class="btn ${S.settings.watch?"":"ghost"}" data-act="wtoggle" aria-pressed="${S.settings.watch}">${S.settings.watch?"Aan: Watch-quests en automatische voortgang":"Uit: de app werkt zonder Watch"}</button>
    ${S.settings.watch?`<div class="goal-grid"><div class="field"><label for="g-move">Bewegen (kcal)</label><input type="number" inputmode="numeric" id="g-move" value="${S.settings.move}"></div><div class="field"><label for="g-ex">Trainen (min)</label><input type="number" inputmode="numeric" id="g-ex" value="${S.settings.exgoal}"></div><div class="field"><label for="g-st">Staan (uur)</label><input type="number" inputmode="numeric" id="g-st" value="${S.settings.stand}"></div></div>
    <p class="muted small" style="margin:0">Neem dezelfde doelen over als in de Activiteit-app op je iPhone.</p>
@@ -1206,7 +1207,8 @@ function logView(){
    <div class="actions"><button class="btn ghost" data-act="exp">Kopieer back-up</button><button class="btn ghost" data-act="imp">Herstel</button></div>
    <p class="muted small" style="margin:0">Op je beginscherm zetten: open deze pagina in Safari, tik op Deel en kies <b>Zet op beginscherm</b>.</p>
    <p class="muted small" style="margin:0" id="syncinfo">Je voortgang staat alleen op deze telefoon, niet in de cloud. Maak af en toe een back-up en bewaar de code in je notities.</p>
-   <button class="btn danger" data-act="reset">${resetArm?"Tik nogmaals: alles wissen":"Begin opnieuw"}</button></section>`;
+   <button class="btn danger" data-act="reset">${resetArm?"Tik nogmaals: alles wissen":"Begin opnieuw"}</button>
+   <p class="muted small" style="margin:0;text-align:center">Versie 1.3 · met Apple Watch-koppeling</p></section>`;
   return h;
 }
 let resetArm=false;
@@ -1275,6 +1277,8 @@ document.addEventListener("click",ev=>{
   if(a==="done"){const q=t.offer[i];if(!q.target&&!watchMet(q)&&t.confirm!==i){t.confirm=i;render();return;}t.confirm=null;complete(i);return;}
   if(a==="pt"){if(!S.free)return;S.free--;S.stats[el.dataset.k]++;save();render();return;}
   if(a==="title"){S.activeTitle=el.dataset.t;save();render();return;}
+  if(a==="whint"){S.watchHintOff=true;save();render();toast("Je vindt de Watch-koppeling altijd onder Logboek");return;}
+  if(a==="wgo"){tab="log";render();const w=$("#watch-settings");if(w)w.scrollIntoView({behavior:"smooth",block:"start"});return;}
   if(a==="wtoggle"){S.settings.watch=!S.settings.watch;if(t&&!t.chosen.length){t.offer=genOffer(t.date,t.rerolled?1:0);t.sel=[];}save();render();toast(S.settings.watch?"Apple Watch aan":"Apple Watch uit. Alles werkt gewoon zonder.");return;}
   if(a==="wpaste"){const inp=$("#wcode");
     const fallback=()=>{if(inp){inp.focus();toast("Houd het veld ingedrukt en kies Plak");}};

@@ -1,5 +1,5 @@
 // Hunter Systeem – offline cache. Verhoog VERSION bij een nieuwe versie van de app.
-const VERSION = "hunter-v2";
+const VERSION = "hunter-v3";
 const CORE = ["./", "index.html", "manifest.webmanifest", "icon-180.png", "icon-192.png", "icon-512.png"];
 self.addEventListener("install", e => {
   e.waitUntil(caches.open(VERSION).then(c => c.addAll(CORE)).then(() => self.skipWaiting()));
@@ -10,7 +10,6 @@ self.addEventListener("activate", e => {
 self.addEventListener("fetch", e => {
   if (e.request.method !== "GET") return;
   const url = new URL(e.request.url);
-  // Lettertypen: eerst uit de cache, anders ophalen en bewaren
   if (url.hostname.endsWith("fonts.googleapis.com") || url.hostname.endsWith("fonts.gstatic.com")) {
     e.respondWith(caches.open(VERSION).then(async c => {
       const hit = await c.match(e.request);
@@ -20,10 +19,18 @@ self.addEventListener("fetch", e => {
     return;
   }
   if (url.origin !== location.origin) return;
-  // App-bestanden: eerst cache (werkt offline), op de achtergrond verversen
+  // De app zelf: eerst online (zodat je altijd de nieuwste versie krijgt), offline uit de cache
+  if (e.request.mode === "navigate" || url.pathname.endsWith("/") || url.pathname.endsWith("index.html")) {
+    e.respondWith((async () => {
+      const c = await caches.open(VERSION);
+      try { const res = await fetch(e.request, {cache: "no-store"}); if (res.ok) c.put("index.html", res.clone()); return res; }
+      catch (err) { return (await c.match("index.html")) || (await c.match("./")); }
+    })());
+    return;
+  }
   e.respondWith(caches.open(VERSION).then(async c => {
     const hit = await c.match(e.request, {ignoreSearch: true});
     const net = fetch(e.request).then(res => { if (res.ok) c.put(e.request, res.clone()); return res; }).catch(() => null);
-    return hit || (await net) || c.match("index.html");
+    return hit || (await net);
   }));
 });
