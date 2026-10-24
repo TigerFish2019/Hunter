@@ -167,6 +167,14 @@ textarea{min-height:80px;font-family:ui-monospace,Menlo,monospace;font-size:12px
 input:focus,textarea:focus{outline:none;border-color:var(--line);box-shadow:0 0 10px rgba(61,180,255,.3)}
 .stack{display:flex;flex-direction:column;gap:12px}
 .small{font-size:13px}
+.ex-term{color:inherit;text-decoration:underline;text-decoration-style:dotted;text-decoration-color:var(--c,var(--line));text-decoration-thickness:2px;text-underline-offset:3px;cursor:pointer;border-radius:3px}
+.ex-term:hover,.ex-term:focus-visible{background:color-mix(in srgb,var(--c,var(--line)) 22%,transparent);outline:none}
+.ex-hint{text-decoration:underline dotted var(--line) 2px;text-underline-offset:3px;color:var(--ink)}
+.ex-win{max-width:400px!important;text-align:left!important}
+.ex-win h2{font-size:22px}
+.ex-stage{border:1px solid var(--line-dim);border-radius:6px;overflow:hidden;background:#060c18}
+.ex-stage svg{display:block;width:100%;height:auto}
+.ex-cues{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px;font-size:14px;line-height:1.45}
 .watch-win{border-color:#2a4d72}
 .rings{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 .ring-btn{--rc:#ff375f;display:flex;flex-direction:column;align-items:center;gap:6px;padding:10px 4px;border:1px solid var(--line-dim);background:#060c18;font-family:var(--f-sys);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
@@ -362,7 +370,7 @@ const POOL=[
  {id:"c06",cat:C,s:"VER",t:"Help iemand op straat: tas tillen, de weg wijzen, fiets omhoog zetten"},
  {id:"c07",cat:C,s:"VER",t:"Schrijf een bedankkaartje aan een buur en stop het in de bus"},
  {id:"c08",cat:C,s:"VER",t:"Zoek een vrijwilligersinitiatief in je wijk en meld je aan voor één activiteit"},
- {id:"c09",cat:C,s:"VER",t:"Veeg de stoep voor je huis én bij {n} buren",n:[1,2,3,4],c:1},
+ {id:"c09",cat:C,s:"VER",t:"Veeg de stoep voor je huis én bij {n} buren",n:[2,2,3,4],c:1},
  {id:"c10",cat:C,s:"VER",t:"Geef iemand die buiten werkt iets te drinken: postbode, bezorger, stratenmaker"},
  {id:"c11",cat:C,s:"VER",t:"Koop vandaag iets bij een lokale ondernemer in plaats van online"},
  {id:"c12",cat:C,s:"VER",t:"Bied iets aan om uit te lenen in de buurtapp of een weggeefgroep"},
@@ -374,14 +382,14 @@ const POOL=[
  {id:"c18",cat:C,s:"VER",t:"Bel een ouder familielid of bekende minstens {n} minuten",n:[10,15,20,30]},
  {id:"c19",cat:C,s:"VER",t:"Bied aan de hond van een buur uit te laten"},
  {id:"c20",cat:C,s:"VER",t:"Help een collega met een taak die niet van jou is"},
- {id:"c21",cat:C,s:"VER",t:"Breng {n} winkelwagentjes terug die anderen lieten staan",n:[1,2,3,5],c:1},
+ {id:"c21",cat:C,s:"VER",t:"Breng {n} winkelwagentjes terug die anderen lieten staan",n:[2,2,3,5],c:1},
  {id:"c22",cat:C,s:"VER",t:"Hang een briefje met een positieve boodschap in je portiek, lift of kantine"},
  {id:"c23",cat:C,s:"VER",t:"Repareer iets kapots voor een ander: fiets, lamp, kastje"},
  {id:"c24",cat:C,s:"VER",t:"Doe boodschappen voor iemand die ziek is of een drukke week heeft"},
  {id:"c25",cat:C,s:"VER",t:"Leer iemand {n} minuten iets wat jij goed kunt",n:[10,15,20,30]},
  {id:"c26",cat:C,s:"VER",t:"Ga naar een lokale activiteit: markt, wijkcentrum of open training"},
  {id:"c27",cat:C,s:"VER",t:"Ruim een rommelige openbare plek op: bankje, bushokje, speelplek"},
- {id:"c28",cat:C,s:"VER",t:"Schrijf een eerlijke positieve review voor {n} lokale zaken",n:[1,2,3,3],c:1},
+ {id:"c28",cat:C,s:"VER",t:"Schrijf een eerlijke positieve review voor {n} lokale zaken",n:[2,2,3,3],c:1},
  {id:"c29",cat:C,s:"VER",t:"Bied in het OV je plek aan iemand die hem harder nodig heeft"},
  {id:"c30",cat:C,s:"VER",t:"Help iemand in je omgeving met tillen, sjouwen of verhuizen"},
  {id:"c31",cat:C,s:"VER",t:"Neem een zak mee op je wandeling en vul hem met zwerfafval"},
@@ -400,7 +408,7 @@ const POOL=[
  {id:"c44",cat:C,s:"VER",t:"Zoek een maatjesproject in je gemeente en neem contact op"},
  {id:"c45",cat:C,s:"VER",t:"Breng een boek naar een minibieb of ruilkast"},
  {id:"c46",cat:C,s:"VER",t:"Bied hulp aan bij een sportclub of vereniging in je buurt"},
- {id:"c47",cat:C,s:"VER",t:"Nodig {n} buren uit voor koffie of een drankje",n:[1,2,3,4],c:1},
+ {id:"c47",cat:C,s:"VER",t:"Nodig {n} buren uit voor koffie of een drankje",n:[2,2,3,4],c:1},
 
  // ---------- INTERACTIE ----------
  {id:"i01",cat:I,s:"CHA",t:"Complimenteer {n} willekeurige mensen die je tegenkomt",n:[3,5,8,10],c:1,h:"Kies iets wat ze zelf kozen: hun jas, hun energie, hun hond."},
@@ -408,7 +416,7 @@ const POOL=[
  {id:"i03",cat:I,s:"CHA",t:"Bel een vriend die je al maanden niet hebt gesproken"},
  {id:"i04",cat:I,s:"CHA",t:"Vraag {n} mensen naar hun naam en gebruik hem in het gesprek",n:[2,3,5,8],c:1},
  {id:"i05",cat:I,s:"CHA",t:"Bedank {n} mensen bij naam: kassa, balie, bezorging",n:[3,5,8,10],c:1},
- {id:"i06",cat:I,s:"CHA",t:"Stuur {n} mensen een bericht over wat je in hen waardeert",n:[1,2,3,5],c:1},
+ {id:"i06",cat:I,s:"CHA",t:"Stuur {n} mensen een bericht over wat je in hen waardeert",n:[2,2,3,5],c:1},
  {id:"i07",cat:I,s:"CHA",t:"Drink koffie of lunch met iemand van een andere afdeling"},
  {id:"i08",cat:I,s:"CHA",t:"Groet {n} mensen met oogcontact en een glimlach",n:[5,10,15,20],c:1},
  {id:"i09",cat:I,s:"CHA",t:"Vraag iemand om advies over iets waar hij of zij goed in is"},
@@ -424,14 +432,14 @@ const POOL=[
  {id:"i19",cat:I,s:"CHA",t:"Plan een concrete afspraak met een vriend voor deze week"},
  {id:"i20",cat:I,s:"CHA",t:"Maak {n} keer iemand aan het lachen",n:[1,3,5,8],c:1},
  {id:"i21",cat:I,s:"CHA",t:"Stuur een bericht naar iemand met wie het contact is verwaterd"},
- {id:"i22",cat:I,s:"CHA",t:"Maak een praatje met {n} buren die je normaal alleen groet",n:[1,2,3,4],c:1},
+ {id:"i22",cat:I,s:"CHA",t:"Maak een praatje met {n} buren die je normaal alleen groet",n:[2,2,3,4],c:1},
  {id:"i23",cat:I,s:"CHA",t:"Zeg ja tegen een sociale uitnodiging, of verstuur er zelf één"},
  {id:"i24",cat:I,s:"CHA",t:"Vraag een ouder familielid naar een herinnering uit zijn of haar jeugd"},
  {id:"i25",cat:I,s:"CHA",t:"Breng twee mensen met elkaar in contact die elkaar zouden moeten kennen"},
  {id:"i26",cat:I,s:"CHA",t:"Breng een uur schermvrij door met iemand"},
  {id:"i27",cat:I,s:"CHA",t:"Bied je excuses aan voor iets kleins dat nog dwarszit"},
  {id:"i28",cat:I,s:"CHA",t:"Geef {n} keer een compliment over iemands karakter",n:[1,2,3,5],c:1},
- {id:"i29",cat:I,s:"CHA",t:"Vraag aan {n} mensen 'hoe gaat het écht met je?' en luister",n:[1,2,3,4],c:1},
+ {id:"i29",cat:I,s:"CHA",t:"Vraag aan {n} mensen 'hoe gaat het écht met je?' en luister",n:[2,2,3,4],c:1},
  {id:"i30",cat:I,s:"CHA",t:"Doe mee met een groepsles of groepstraining en praat met een deelnemer"},
  {id:"i31",cat:I,s:"CHA",t:"Videobel {n} minuten met familie of een vriend",n:[10,15,20,30]},
  {id:"i32",cat:I,s:"CHA",t:"Schrijf drie dingen op waar je dankbaar voor bent en deel er één"},
@@ -441,9 +449,9 @@ const POOL=[
  {id:"i36",cat:I,s:"CHA",t:"Vertel iemand waarom je trots op hem of haar bent"},
  {id:"i37",cat:I,s:"CHA",t:"Geef een straatmuzikant of maker een persoonlijk compliment"},
  {id:"i38",cat:I,s:"CHA",t:"Sluit aan bij een groepsgesprek en draag iets bij"},
- {id:"i39",cat:I,s:"CHA",t:"Stuur {n} vrienden een spraakbericht in plaats van tekst",n:[1,2,3,4],c:1},
+ {id:"i39",cat:I,s:"CHA",t:"Stuur {n} vrienden een spraakbericht in plaats van tekst",n:[2,2,3,4],c:1},
  {id:"i40",cat:I,s:"CHA",t:"Plan een spelletjesavond of etentje met vrienden"},
- {id:"i41",cat:I,s:"CHA",t:"Vraag {n} mensen: 'waar werd jij vandaag blij van?'",n:[1,2,3,5],c:1},
+ {id:"i41",cat:I,s:"CHA",t:"Vraag {n} mensen: 'waar werd jij vandaag blij van?'",n:[2,2,3,5],c:1},
  {id:"i42",cat:I,s:"CHA",t:"Feliciteer iemand persoonlijk, met een eigen bericht of in het echt"},
  {id:"i43",cat:I,s:"CHA",t:"Luister 10 minuten naar iemand zonder advies te geven"},
  {id:"i44",cat:I,s:"CHA",t:"Bedank je partner, huisgenoot of familie voor iets alledaags"},
@@ -465,7 +473,7 @@ const POOL=[
  {id:"i49",cat:I,s:"CHA",t:"Bel een collega 10 minuten zonder agenda, gewoon om bij te praten"},
  {id:"i50",cat:I,s:"CHA",t:"Geef in een online overleg iemand hardop de credits voor zijn of haar werk"},
  {id:"i51",cat:I,s:"CHA",t:"Werk een uur in een café of bibliotheek en maak een praatje met iemand"},
- {id:"i52",cat:I,s:"CHA",t:"Stuur {n} collega's een persoonlijk bedankje via chat, met wat ze precies goed deden",n:[1,2,3,4],c:1},
+ {id:"i52",cat:I,s:"CHA",t:"Stuur {n} collega's een persoonlijk bedankje via chat, met wat ze precies goed deden",n:[2,2,3,4],c:1},
  {id:"c48",cat:C,s:"VER",t:"Haal je lunch bij een zaak in je eigen wijk en maak kennis met de eigenaar"},
  {id:"c49",cat:C,s:"VER",t:"Maak een rondje door de wijk in je lunchpauze en groet iedereen die je tegenkomt"},
  // Kantoordag (verschijnen alleen op je kantoordag)
@@ -712,7 +720,7 @@ function gatesView(){
   const G=gateState();
   let h=`<section class="win stack"><div class="today-head"><div><span class="sys-label">[ Poorten ]</span><h2>${G.active?"Actieve poort":"Kies een poort"}</h2></div><div class="timer">Combo<b style="color:var(--gold)">×${gateMult().toFixed(1)}</b></div></div>`;
   if(G.active){const q=G.active,gt=GATES[q.rar];
-    h+=`<article class="q gate-q" data-cat="${q.cat}" style="--c:${gt.c}"><div class="q-meta"><span style="color:${gt.c}">${gt.n}</span><span class="q-stat">+${STATS.find(s=>s.k===q.s).n}</span><span class="q-xp">${Math.round(q.xp*gateMult())} XP</span></div><div class="q-text">${esc(q.text)}</div>${q.h?`<div class="q-hint">${esc(q.h)}</div>`:""}`;
+    h+=`<article class="q gate-q" data-cat="${q.cat}" style="--c:${gt.c}"><div class="q-meta"><span style="color:${gt.c}">${gt.n}</span><span class="q-stat">+${STATS.find(s=>s.k===q.s).n}</span><span class="q-xp">${Math.round(q.xp*gateMult())} XP</span></div><div class="q-text">${exLink(q.text)}</div>${q.h?`<div class="q-hint">${esc(q.h)}</div>`:""}`;
     if(S.settings.watch&&q.m)h+=watchProgress(q);
     if(q.deadline)h+=`<div class="gate-timer">Poort stort in over <b id="gtimer">${gateTimeLeft(q)}</b></div>`;
     if(q.target){const st=q.step||(q.target>=40?[1,10]:[1,5]);
@@ -1102,6 +1110,224 @@ function avatarSVG(look,stage,stats,opt){
   return o+`</svg>`;
 }
 
+/* ===================== OEFENDEMO ===================== */
+// Tik op een oefening in een quest: je hunter doet hem voor. Skelet met inverse kinematica, keyframes per oefening.
+const DX={TL:48,NK:15,U:27,F:25,TH:36,SH:36,G:212};
+const drad=a=>a*Math.PI/180, ddir=a=>[Math.sin(drad(a)),-Math.cos(drad(a))];
+function dik(P,Q,a,b,s){const dx=Q[0]-P[0],dy=Q[1]-P[1],d=Math.hypot(dx,dy)||1e-6,dm=Math.min(a+b-0.05,Math.max(Math.abs(a-b)+0.05,d)),ux=dx/d,uy=dy/d;
+  const A=Math.acos(Math.max(-1,Math.min(1,(a*a+dm*dm-b*b)/(2*a*dm))))*(s||1),rx=ux*Math.cos(A)-uy*Math.sin(A),ry=ux*Math.sin(A)+uy*Math.cos(A);
+  return [[P[0]+rx*a,P[1]+ry*a],[P[0]+ux*dm,P[1]+uy*dm]];}
+function dlimb(spec,root,l1,l2){if(spec[0]==="a"){const d1=ddir(spec[1]),J=[root[0]+d1[0]*l1,root[1]+d1[1]*l1],d2=ddir(spec[2]);return [J,[J[0]+d2[0]*l2,J[1]+d2[1]*l2]];}return dik(root,[spec[0],spec[1]],l1,l2,spec[2]);}
+function dlerp(a,b,u){if(typeof a==="number"&&typeof b==="number")return a+(b-a)*u;if(Array.isArray(a)&&Array.isArray(b)&&a.length===b.length){return a.map((v,i)=>(i===2&&a[0]!=="a")||typeof v==="string"?v:dlerp(v,b[i],u));}
+  if(a&&typeof a==="object"&&b&&typeof b==="object"){const o={};for(const k in a)o[k]=k in b?dlerp(a[k],b[k],u):a[k];for(const k in b)if(!(k in o))o[k]=b[k];return o;}return u<.5?a:b;}
+const dease=u=>u*u*(3-2*u);
+// --- basishoudingen (zijaanzicht, kijkt naar rechts) ---
+const P_ST={h:[120,140],t:0,A:[117,190,1],B:[123,190,1],L:[117,212,-1],R:[123,212,-1]};
+const P_PUSHT={h:[105,178],t:64,A:[150,212,-1],B:[153,212,-1],L:[40,212,-1],R:[43,212,-1]};
+const P_PUSHB={h:[111,196],t:81,A:[150,212,-1],B:[153,212,-1],L:[40,212,-1],R:[43,212,-1]};
+const P_HANG={h:[125,132],t:0,A:[123,34,1],B:[127,34,1],L:[114,200,-1],R:[118,203,-1]};
+const P_HANGUP={h:[126,100],t:-4,nk:-10,A:[123,34,1],B:[127,34,1],L:[114,170,-1],R:[118,172,-1]};
+const P_LIE={h:[124,204],t:-86,nk:0,A:[110,211,1],B:[114,211,1],L:[160,212,-1],R:[164,212,-1]};
+const P_FRONT={view:"front",h:[120,140],t:0,A:[104,190,1],B:[136,190,-1],L:[113,212,1],R:[127,212,-1]};
+const EXD={
+ push:{n:"Push-up",props:[],k:[P_PUSHT,P_PUSHB],d:[1.0,1.0],c:["Handen onder je schouders, lichaam als een plank.","Zak tot je borst bijna de grond raakt.","Duw krachtig terug en adem uit."]},
+ pushx:{n:"Explosieve push-up",props:[],k:[P_PUSHT,P_PUSHB,{...P_PUSHT,h:[104,166],t:58,A:[151,198,-1],B:[154,198,-1]},P_PUSHT],d:[.8,.35,.35,.6],c:["Zak gecontroleerd.","Duw zo hard dat je handen even loskomen.","Land zacht met licht gebogen armen."]},
+ pike:{n:"Pike push-up",props:[],k:[{h:[96,138],t:150,A:[150,212,1],B:[153,212,1],L:[56,212,-1],R:[59,212,-1]},{h:[98,150],t:160,nk:-10,A:[150,212,1],B:[153,212,1],L:[56,212,-1],R:[59,212,-1]}],d:[1,1],c:["Heupen hoog, lichaam als een omgekeerde V.","Zak met je hoofd tussen je handen naar de grond.","Traint vooral je schouders."]},
+ pullup:{n:"Pull-up",props:["bar"],k:[P_HANG,P_HANGUP],d:[1.1,1.1],c:["Hang met gestrekte armen.","Trek je borst naar de stang tot je kin erboven is.","Zak gecontroleerd terug."]},
+ neg:{n:"Negatieve pull-up",props:["bar"],k:[P_HANGUP,P_HANG,P_HANGUP],d:[2.6,.5,.7],c:["Begin met je kin boven de stang.","Zak in 5 tellen zo langzaam mogelijk.","Stap of spring terug naar boven."]},
+ scap:{n:"Scapula pull-up",props:["bar"],k:[P_HANG,{...P_HANG,h:[125,125],L:[114,193,-1],R:[118,196,-1]}],d:[.9,.9],c:["Hang met gestrekte armen.","Trek alleen je schouderbladen omlaag en naar elkaar toe.","Kleine beweging, armen blijven gestrekt."]},
+ hang:{n:"Dead hang",props:["bar"],k:[P_HANG,{...P_HANG,h:[127,132]},P_HANG,{...P_HANG,h:[123,132]}],d:[1.2,1.2,1.2,1.2],c:["Hang ontspannen met gestrekte armen.","Schouders licht actief, niet in je oren.","Adem rustig door."]},
+ hkr:{n:"Hanging knee raise",props:["bar"],k:[P_HANG,{...P_HANG,t:-6,L:[150,150,-1],R:[154,152,-1]}],d:[1,1],c:["Hang aan de stang zonder te zwaaien.","Trek je knieën naar je borst.","Zak langzaam terug."]},
+ squat:{n:"Box squat",props:["chair"],k:[{...P_ST,A:[124,190,1],B:[128,190,1]},{h:[92,170],t:30,A:[160,128,1],B:[163,130,1],L:[121,212,-1],R:[125,212,-1]}],d:[1.1,1.1],c:["Voeten op heupbreedte, stoel achter je.","Duw je heupen naar achteren en raak de stoel licht aan.","Knieën in lijn met je tenen, kom krachtig omhoog."]},
+ situp:{n:"Sit-up",props:["mat"],k:[{...P_LIE,A:[66,186,1],B:[70,188,1],L:[158,212,-1],R:[162,212,-1]},{...P_LIE,t:-18,A:[150,170,1],B:[153,172,1],L:[158,212,-1],R:[162,212,-1]}],d:[1.1,1.1],c:["Op je rug, knieën gebogen, voeten plat.","Rol je romp omhoog naar je knieën.","Zak gecontroleerd terug."]},
+ legraise:{n:"Leg raise",props:["mat"],k:[{...P_LIE,t:-88,A:[118,211,1],B:[121,211,1],L:["a",86,86],R:["a",88,88]},{...P_LIE,t:-88,A:[118,211,1],B:[121,211,1],L:["a",6,6],R:["a",8,8]}],d:[1.3,1.3],c:["Op je rug, handen naast je heupen.","Til je gestrekte benen tot ze recht omhoog wijzen.","Zak langzaam, zonder de grond te raken."]},
+ hollow:{n:"Hollow hold",props:["mat"],k:[{...P_LIE,t:-74,A:["a",-84,-84],B:["a",-82,-82],L:["a",76,76],R:["a",78,78]},{...P_LIE,t:-76,A:["a",-86,-86],B:["a",-84,-84],L:["a",79,79],R:["a",81,81]}],d:[1.4,1.4],c:["Op je rug, onderrug tegen de grond.","Til schouders en benen een stukje op.","Armen gestrekt achter je hoofd en vasthouden."]},
+ deadbug:{n:"Dead bug",props:["mat"],k:[
+   {...P_LIE,t:-90,A:["a",2,2],B:["a",-2,-2],L:["a",4,92],R:["a",0,88]},
+   {...P_LIE,t:-90,A:["a",-84,-84],B:["a",-2,-2],L:["a",4,92],R:["a",84,84]},
+   {...P_LIE,t:-90,A:["a",2,2],B:["a",-2,-2],L:["a",4,92],R:["a",0,88]},
+   {...P_LIE,t:-90,A:["a",2,2],B:["a",-84,-84],L:["a",84,84],R:["a",0,88]}],d:[1,1,1,1],c:["Op je rug, armen omhoog, knieën in 90 graden.","Strek tegelijk een arm en het andere been.","Onderrug blijft tegen de grond."]},
+ superman:{n:"Superman hold",props:["mat"],k:[{h:[124,204],t:-90,hf:1,A:["a",-90,-90],B:["a",-90,-90],L:["a",90,90],R:["a",90,90]},{h:[124,204],t:-78,hf:1,nk:6,A:["a",-76,-76],B:["a",-76,-76],L:["a",80,80],R:["a",80,80]}],d:[1.2,1.6],c:["Op je buik, armen gestrekt voor je.","Til armen, borst en benen tegelijk op.","Houd 10 seconden vast."]},
+ plank:{n:"Plank",props:["mat"],k:[{h:[108,189],t:79,A:[180,212,1],B:[183,212,1],L:[38,212,-1],R:[41,212,-1]},{h:[108,191],t:80,A:[180,212,1],B:[183,212,1],L:[38,212,-1],R:[41,212,-1]}],d:[1.6,1.6],c:["Onderarmen op de grond, ellebogen onder je schouders.","Lichaam als een rechte plank.","Buik en billen aanspannen, adem door."]},
+ sideplank:{n:"Side plank",props:["mat"],k:[{view:"front",h:[110,176],t:68,A:[156,212,1],B:["a",-20,-20],L:[40,212,1],R:[42,210,1]},{view:"front",h:[110,184],t:72,A:[156,212,1],B:["a",-10,-10],L:[40,212,1],R:[42,210,1]}],d:[1.4,1.4],c:["Op je onderarm, elleboog onder je schouder.","Til je heupen tot je lichaam recht is.","Bovenste arm mag omhoog."]},
+ bridge:{n:"Glute bridge",props:["mat"],k:[{h:[118,204],t:-88,A:[120,211,1],B:[123,211,1],L:[152,212,-1],R:[156,212,-1]},{h:[118,176],t:-118,A:[120,211,1],B:[123,211,1],L:[152,212,-1],R:[156,212,-1]}],d:[1.1,1.1],c:["Op je rug, knieën gebogen, voeten plat.","Duw je heupen omhoog tot je lichaam een rechte lijn is.","Knijp je billen samen en zak rustig terug."]},
+ clam:{n:"Clamshell",props:["matplane","bandknee"],k:[{view:"front",h:[140,194],t:-90,A:["a",-100,-20],B:["a",120,150],L:["a",125,235],R:["a",125,235]},{view:"front",h:[140,194],t:-90,A:["a",-100,-20],B:["a",120,150],L:["a",125,235],R:["a",92,214]}],d:[1,1],c:["Op je zij, knieën gebogen, elastiek om je knieën.","Houd je voeten tegen elkaar.","Open je bovenste knie en sluit langzaam."]},
+ burpee:{n:"Burpee zonder sprong",props:[],k:[P_ST,{h:[110,182],t:60,A:[150,212,1],B:[153,212,1],L:[120,212,-1],R:[124,212,-1]},P_PUSHT,{h:[110,182],t:60,A:[150,212,1],B:[153,212,1],L:[120,212,-1],R:[124,212,-1]},{...P_ST,A:[118,36,-1],B:[122,36,-1]}],d:[.7,.8,.8,.7,.8],c:["Zak door en zet je handen op de grond.","Stap naar achteren in een plank en weer terug.","Kom omhoog en strek je armen boven je hoofd."]},
+ climber:{n:"Mountain climber",props:[],k:[{...P_PUSHT,R:[126,196,-1]},{...P_PUSHT,L:[126,196,-1]}],d:[.45,.45],c:["Begin in een hoge plank.","Trek afwisselend je knieën naar je borst.","Houd je heupen laag."]},
+ calf:{n:"Calf raise",props:[],k:[P_ST,{...P_ST,h:[120,131],tp:1}],d:[1,1],c:["Sta rechtop, eventueel met steun.","Kom zo hoog mogelijk op je tenen.","Zak langzaam terug."]},
+ dips:{n:"Dip",props:["bench"],k:[{h:[106,150],t:-6,A:[86,152,1],B:[89,152,1],L:[152,212,-1],R:[156,212,-1]},{h:[104,178],t:-8,A:[86,152,1],B:[89,152,1],L:[152,212,-1],R:[156,212,-1]}],d:[1,1],c:["Handen op de rand achter je, vingers naar voren.","Zak tot je ellebogen ongeveer 90 graden zijn.","Duw jezelf weer omhoog."]},
+ pullapart:{n:"Band pull-apart",props:["bandhands"],k:[{...P_FRONT,A:[113,92,1],B:[127,92,-1]},{...P_FRONT,A:[66,90,1],B:[174,90,-1]}],d:[1,1],c:["Armen gestrekt voor je, elastiek op schouderhoogte.","Trek het elastiek uit elkaar tot aan je borst.","Knijp je schouderbladen samen."]},
+ facepull:{n:"Face pull",props:["bandanchor"],k:[{...P_FRONT,A:[114,104,1],B:[126,104,-1]},{...P_FRONT,A:[100,68,1],B:[140,68,-1]}],d:[1,1],c:["Elastiek op ooghoogte voor je.","Trek het elastiek naar je gezicht, ellebogen hoog.","Knijp je schouderbladen samen."]},
+ bandrow:{n:"Elastiek-row",props:["bandside"],k:[{...P_ST,A:[172,112,-1],B:[175,114,-1]},{...P_ST,A:[134,120,-1],B:[137,122,-1]}],d:[1,1],c:["Elastiek vast voor je op borsthoogte.","Trek je handen naar je borst.","Ellebogen langs je lichaam, schouderbladen samen."]},
+ bentrow:{n:"Bent-over row",props:["curlbar"],k:[{h:[104,143],t:62,A:[148,188,1],B:[150,188,1],L:[118,212,-1],R:[122,212,-1]},{h:[104,143],t:62,A:[136,157,-1],B:[138,150,-1],L:[118,212,-1],R:[122,212,-1]}],d:[1,1],c:["Buig voorover met een rechte rug.","Trek de stang naar je navel.","Ellebogen langs je lichaam."]},
+ curl:{n:"Bicep curl",props:["curlbar"],k:[{...P_ST,A:[128,148,-1],B:[131,148,-1]},{...P_ST,A:[140,100,-1],B:[143,100,-1]}],d:[1,1],c:["Ellebogen tegen je zij.","Krul de stang omhoog naar je schouders.","Zak langzaam terug."]},
+ press:{n:"Overhead press",props:["curlbar"],k:[{...P_ST,A:[136,96,-1],B:[139,96,-1]},{...P_ST,A:[122,38,-1],B:[125,38,-1]}],d:[1,1],c:["Stang op schouderhoogte.","Druk recht omhoog boven je hoofd.","Span je buik aan, geen holle rug."]},
+ rdl:{n:"Romanian deadlift",props:["curlbar"],k:[{...P_ST,A:[128,146,1],B:[131,146,1]},{h:[98,145],t:74,nk:-8,A:[150,196,1],B:[153,196,1],L:[118,212,-1],R:[122,212,-1]}],d:[1.2,1.2],c:["Knieën licht gebogen.","Duw je heupen naar achteren, de stang glijdt langs je benen.","Rug recht, kom omhoog door je heupen naar voren te duwen."]},
+ floorpress:{n:"Floor press",props:["mat","curlbar"],k:[{h:[130,204],t:-88,A:[90,182,-1],B:[93,184,-1],L:[164,212,-1],R:[168,212,-1]},{h:[130,204],t:-88,A:[84,150,-1],B:[87,152,-1],L:[164,212,-1],R:[168,212,-1]}],d:[1,1],c:["Op je rug, ellebogen op de grond.","Druk de stang recht omhoog.","Zak tot je ellebogen de grond raken."]},
+ skull:{n:"Skull crusher",props:["mat","curlbar"],k:[{h:[130,204],t:-88,A:[84,150,-1],B:[87,152,-1],L:[164,212,-1],R:[168,212,-1]},{h:[130,204],t:-88,A:[66,176,1],B:[69,178,1],L:[164,212,-1],R:[168,212,-1]}],d:[1,1],c:["Op je rug, armen recht omhoog.","Buig alleen je ellebogen, stang naar je voorhoofd.","Strek je armen weer."]},
+ stepup:{n:"Step-up",props:["step"],k:[{...P_ST,h:[100,140],L:[97,212,-1],R:[103,212,-1]},{...P_ST,h:[106,140],t:8,L:[97,212,-1],R:[146,192,-1]},{...P_ST,h:[146,120],L:[143,192,-1],R:[149,192,-1]},{...P_ST,h:[106,140],t:4,L:[97,212,-1],R:[146,192,-1]}],d:[.7,.9,.7,.7],c:["Zet één voet volledig op de trede.","Duw jezelf omhoog via dat been.","Stap gecontroleerd terug."]},
+ tke:{n:"Terminal knee extension",props:["bandknee2"],k:[{...P_ST,R:[130,212,-1],h:[118,146]},{...P_ST,h:[118,140]}],d:[1,1],c:["Elastiek achter je knie, vast voor je.","Buig je knie licht.","Strek je knie volledig en span je bovenbeen aan."]},
+ bandwalk:{n:"Banded walk",props:["bandknee"],k:[{...P_FRONT,h:[120,152],A:[104,196,1],B:[136,196,-1],L:[104,212,1],R:[136,212,-1]},{...P_FRONT,h:[114,152],A:[98,196,1],B:[130,196,-1],L:[88,212,1],R:[136,212,-1]},{...P_FRONT,h:[110,152],A:[94,196,1],B:[126,196,-1],L:[88,212,1],R:[124,212,-1]}],d:[.6,.6,.6],c:["Elastiek om je knieën, zak licht door je knieën.","Zet kleine stappen opzij.","Houd spanning op het elastiek."]},
+ bear:{n:"Bear crawl",props:[],k:[{h:[108,172],t:82,A:[156,212,1],B:[152,212,1],L:[100,212,-1],R:[96,212,-1]},{h:[110,172],t:82,A:[156,212,1],B:[164,206,1],L:[108,206,-1],R:[96,212,-1]},{h:[108,172],t:82,A:[156,212,1],B:[152,212,1],L:[100,212,-1],R:[96,212,-1]},{h:[110,172],t:82,A:[166,206,1],B:[152,212,1],L:[100,212,-1],R:[106,206,-1]}],d:[.5,.5,.5,.5],c:["Handen en voeten op de grond, knieën net boven de grond.","Beweeg tegelijk een hand en het andere been.","Rug plat, kijk naar de grond."]},
+ handstand:{n:"Handstand tegen de muur",props:["wall"],k:[{h:[178,112],t:180,nk:0,A:[174,212,1],B:[177,212,1],L:["a",4,6],R:["a",2,4]},{h:[176,112],t:178,A:[174,212,1],B:[177,212,1],L:["a",6,8],R:["a",4,6]}],d:[1.5,1.5],c:["Handen op schouderbreedte, een stukje van de muur.","Loop of zwaai je benen omhoog tegen de muur.","Lichaam gestrekt, duw de grond weg."]},
+ boks:{n:"Schaduwboksen",props:[],k:[{h:[116,144],t:6,A:[140,98,-1],B:[144,104,-1],L:[100,212,-1],R:[136,212,-1]},{h:[118,144],t:8,A:[174,96,-1],B:[144,104,-1],L:[100,212,-1],R:[136,212,-1]},{h:[116,144],t:6,A:[140,98,-1],B:[144,104,-1],L:[100,212,-1],R:[136,212,-1]},{h:[120,144],t:12,A:[140,98,-1],B:[178,98,-1],L:[100,212,-1],R:[136,212,-1]}],d:[.35,.35,.35,.35],c:["Voeten op schouderbreedte, handen bij je kin.","Stoot afwisselend links en rechts.","Blijf licht op je voeten."]},
+ balance:{n:"Op één been staan",props:[],k:[{...P_ST,A:["a",210,200],B:["a",150,160],R:[140,176,-1]},{...P_ST,h:[121,140],A:["a",214,204],B:["a",146,156],R:[141,176,-1]}],d:[1.4,1.4],c:["Sta op één been, de andere knie omhoog.","Kijk naar één vast punt.","Lukt het, sluit dan je ogen."]},
+ stretch:{n:"Stretchen",props:[],k:[P_ST,{...P_ST,A:[116,30,-1],B:[120,30,-1],tp:.5,h:[120,136]},{h:[110,140],t:150,nk:10,A:[128,206,1],B:[131,206,1],L:[118,212,-1],R:[122,212,-1]},P_ST],d:[1.2,1.4,1.6,1.2],c:["Reik omhoog en adem in.","Buig rustig voorover en adem uit.","Houd elke stretch 20 tot 30 seconden."]},
+ yoga:{n:"Yoga en mobility",props:["mat"],k:[{h:[100,140],t:140,A:[150,212,1],B:[153,212,1],L:[60,212,-1],R:[63,212,-1]},{h:[104,178],t:64,A:[150,212,1],B:[153,212,1],L:[40,212,-1],R:[43,212,-1]},{h:[102,206],t:48,nk:-38,A:[146,212,1],B:[149,212,1],L:["a",268,268],R:["a",268,268]},{h:[104,178],t:64,A:[150,212,1],B:[153,212,1],L:[40,212,-1],R:[43,212,-1]}],d:[1.6,1.4,1.6,1.4],c:["Beweeg rustig van houding naar houding.","Adem door je neus.","Ga nooit door pijn heen."]},
+ dance:{n:"Dansen",props:[],fn:ph=>{const s=Math.sin(ph*Math.PI*2),c=Math.cos(ph*Math.PI*4);return {view:"front",h:[120+6*s,140-3*Math.abs(c)],t:4*s,A:["a",-140+40*s,-170+30*c],B:["a",150+30*s,120+40*c],L:[112+6*s,212,1],R:[128+6*s,212,-1]};},per:1.6,c:["Gewoon bewegen op de muziek.","Gebruik je armen.","Plezier telt het meest."]},
+ walk:{n:"Wandelen",props:["moving"],fn:ph=>dWalk(ph,false),per:1.1,c:["Rechtop, schouders ontspannen.","Armen bewegen mee.","Stevig tempo als het kan."]},
+ run:{n:"Hardlopen",props:["moving"],fn:ph=>dWalk(ph,true),per:.7,c:["Rustig tempo: je kunt nog praten.","Korte passen, land onder je heup.","Armen ontspannen meebewegen."]},
+ farmer:{n:"Farmer's walk",props:["moving","bags"],fn:ph=>{const p=dWalk(ph,false);p.A=["a",182,182];p.B=["a",178,178];p.t=0;return p;},per:1.2,c:["Iets zwaars in elke hand.","Loop rechtop, schouders naar achteren.","Kleine, rustige stappen."]},
+ stairs:{n:"Traplopen",props:["stairs"],fn:ph=>{const p=dWalk(ph,false);const s=Math.sin(ph*Math.PI*2);p.L=["a",165-25*s,190];p.R=["a",165+25*s,190];p.t=8;return p;},per:1.1,c:["Zet je hele voet op de trede.","Gebruik de leuning als je wilt.","Rustig, gelijkmatig tempo."]},
+ bike:{n:"Fietsen",props:["bike"],fn:ph=>{const a=ph*Math.PI*2,c=[124,188],r=15;return {h:[106,140],t:30,nk:-20,A:[160,124,-1],B:[163,126,-1],L:[c[0]+Math.cos(a+Math.PI)*r,c[1]+Math.sin(a+Math.PI)*r,-1],R:[c[0]+Math.cos(a)*r,c[1]+Math.sin(a)*r,-1],pedal:a};},per:1.1,c:["Zadel op heuphoogte.","Trap rond en gelijkmatig.","Fietsen is goed voor gevoelige knieën."]},
+ rope:{n:"Touwtjespringen",props:["rope"],fn:ph=>{const hop=Math.max(0,Math.sin(ph*Math.PI*2));return {view:"front",h:[120,140-9*hop],t:0,A:[100,152-9*hop,1],B:[140,152-9*hop,-1],L:[114,212-9*hop,1],R:[126,212-9*hop,-1],tp:hop,rope:ph};},per:.6,c:["Ellebogen dicht bij je lichaam.","Draai het touw vanuit je polsen.","Kleine, lage sprongen op de bal van je voet."]}
+};
+function dWalk(ph,run){const a=ph*Math.PI*2,s=Math.sin(a),cf=Math.max(0,Math.cos(a)),cb=Math.max(0,-Math.cos(a));
+  if(run)return {h:[120,138-5*Math.abs(Math.cos(a))],t:10,nk:-6,A:["a",180+42*s,100+42*s],B:["a",180-42*s,100-42*s],L:["a",180-40*s,180-40*s+12+60*cb],R:["a",180+40*s,180+40*s+12+60*cf]};
+  return {h:[120,140-3*Math.abs(Math.cos(a))],t:3,A:["a",180+22*s,172+22*s],B:["a",180-22*s,172-22*s],L:["a",180-24*s,180-24*s+6+26*cb],R:["a",180+24*s,180+24*s+6+26*cf]};}
+// --- termen in quests die naar een oefening verwijzen ---
+const EXTERMS=[
+ ["zijwaartse stappen","bandwalk"],["banded walks?","bandwalk"],
+ ["diamond push-ups?","push","Diamond push-up",["Duimen en wijsvingers vormen een ruit onder je borst.","Ellebogen langs je lichaam.","Zak gecontroleerd en druk krachtig terug."]],
+ ["explosieve push-ups?","pushx"],["archer push-ups?","push","Archer push-up",["Handen breed.","Zak naar één kant, de andere arm blijft gestrekt.","Wissel per herhaling van kant."]],
+ ["pike push-ups?","pike"],["push-ups?","push"],
+ ["negatieve pull-ups?","neg"],["scapula pull-ups?","scap"],["pull-ups?","pullup"],
+ ["chin-ups?","pullup","Chin-up",["Hang met je handpalmen naar je toe.","Trek je kin boven de stang.","Zak gecontroleerd terug."]],
+ ["dead hang","hang"],["hanging knee raises?","hkr"],["box squats?","squat"],["sit-ups?","situp"],["burpees?","burpee"],
+ ["band pull-aparts?","pullapart"],["terminal knee extensions?","tke"],["mountain climbers?","climber"],["stretch-sessie","stretch"],
+ ["calf raises?","calf"],["touwtjespringen","rope"],["touwtje","rope"],["glute bridges?","bridge"],["hollow hold","hollow"],
+ ["bear crawl","bear"],["yoga","yoga"],["mobility","yoga"],["handstand","handstand"],["superman holds?","superman"],
+ ["bent-over rows?","bentrow"],["curl bar rows","bentrow"],["schaduwboks","boks"],["bicep curls?","curl"],["leg raises?","legraise"],
+ ["overhead presses?","press"],["romanian deadlifts?","rdl"],["step-ups?","stepup"],["face pulls?","facepull"],["farmer's walk","farmer"],
+ ["floor presses?","floorpress"],["skull crushers?","skull"],["side planks?","sideplank"],["plank","plank"],["clamshells?","clam"],
+ ["elastiek-rows","bandrow"],["dead bugs?","deadbug"],["dips","dips"],["op één been","balance"],
+ ["wandelend","walk"],["wandel","walk"],["stappen","walk"],["ren","run"],["trap op","stairs"],["fiets","bike"],["dans","dance"]
+];
+const EXRE=new RegExp("(^|[^A-Za-zÀ-ÿ])("+EXTERMS.map(t=>t[0]).join("|")+")(?![A-Za-zÀ-ÿ-])","gi");
+const EXTERMRE=EXTERMS.map(t=>new RegExp("^(?:"+t[0]+")$","i"));
+function exLink(text){
+  return esc(text).replace(EXRE,(m,pre,word)=>{const i=EXTERMRE.findIndex(r=>r.test(word));if(i<0)return m;
+    return pre+`<span class="ex-term" role="button" tabindex="0" data-ex="${i}" aria-label="Bekijk ${esc(word)}">${word}</span>`;});
+}
+// --- tekenen ---
+function dFigure(P,look,stage,el,time,props){
+  const L=lookOf(look), view=P.view||"side", OL="#140c18";
+  const skin=L.skin, skinS=shade(skin,-.22), oc=shade(L.outCol,-.1), hc=L.hairCol, pants=shade(oc,-.55);
+  const sleeve=L.outfit==="vest"?skin:oc, fore=(L.outfit==="jack"&&stage<3)||L.outfit==="mantel"?oc:skin, sash=stage>=2?el.c:"#e8e0cc";
+  const H=P.h, td=ddir(P.t), N=[H[0]+td[0]*DX.TL,H[1]+td[1]*DX.TL], pp=[Math.cos(drad(P.t)),Math.sin(drad(P.t))];
+  const front=view==="front", shL=front?[N[0]-pp[0]*13,N[1]-pp[1]*13]:N, shR=front?[N[0]+pp[0]*13,N[1]+pp[1]*13]:N;
+  const hpL=front?[H[0]-pp[0]*7,H[1]-pp[1]*7]:H, hpR=front?[H[0]+pp[0]*7,H[1]+pp[1]*7]:H;
+  const A=dlimb(P.A,shL,DX.U,DX.F), B=dlimb(P.B,shR,DX.U,DX.F), Lg=dlimb(P.L,hpL,DX.TH,DX.SH), Rg=dlimb(P.R,hpR,DX.TH,DX.SH);
+  const hd=ddir(P.t+(P.nk||0)), HC=[N[0]+hd[0]*DX.NK,N[1]+hd[1]*DX.NK];
+  const seg=(p,q,w,c)=>`<line x1="${f1(p[0])}" y1="${f1(p[1])}" x2="${f1(q[0])}" y2="${f1(q[1])}" stroke="${OL}" stroke-width="${f1(w+3.4)}" stroke-linecap="round"/><line x1="${f1(p[0])}" y1="${f1(p[1])}" x2="${f1(q[0])}" y2="${f1(q[1])}" stroke="${c}" stroke-width="${f1(w)}" stroke-linecap="round"/>`;
+  const dk=(c,far)=>far?shade(c,-.25):c;
+  const arm=(root,J,far)=>{const [E,Hn]=J;let s=seg(root,E,9,dk(sleeve,far))+seg(E,Hn,8,dk(fore,far));
+    if(stage>=1){const w1=[E[0]+(Hn[0]-E[0])*.72,E[1]+(Hn[1]-E[1])*.72];s+=`<line x1="${f1(w1[0])}" y1="${f1(w1[1])}" x2="${f1(Hn[0])}" y2="${f1(Hn[1])}" stroke="${el.c}" stroke-width="7" stroke-linecap="butt"/>`;}
+    return s+`<circle cx="${f1(Hn[0])}" cy="${f1(Hn[1])}" r="4.6" fill="${dk(skin,far)}" stroke="${OL}" stroke-width="1.7"/>`;};
+  const leg=(root,J,far)=>{const [K,An]=J;let s=seg(root,K,12,dk(pants,far))+seg(K,An,10.5,dk(pants,far));
+    const sl=Math.hypot(An[0]-K[0],An[1]-K[1])||1,ux=(An[0]-K[0])/sl,uy=(An[1]-K[1])/sl;
+    if(front){s+=`<ellipse cx="${f1(An[0])}" cy="${f1(An[1]+1)}" rx="6.5" ry="4" fill="#1c1824" stroke="${OL}" stroke-width="1.6"/>`;}
+    else{const tp=(P.tp||0)*40*Math.PI/180;let fx=uy,fy=-ux;const fx2=fx*Math.cos(tp)-fy*Math.sin(tp),fy2=fx*Math.sin(tp)+fy*Math.cos(tp);
+      s+=seg([An[0]-fx2*2,An[1]-fy2*2],[An[0]+fx2*9,An[1]+fy2*9],6.5,"#1c1824");}
+    return s+`<line x1="${f1(K[0]+(An[0]-K[0])*.8)}" y1="${f1(K[1]+(An[1]-K[1])*.8)}" x2="${f1(An[0])}" y2="${f1(An[1])}" stroke="${stage>=1?el.c:"#efe6d4"}" stroke-width="5" stroke-linecap="butt" opacity=".9"/>`;};
+  let torso;
+  if(front){const pts=[shL,shR,[hpR[0]+pp[0]*5,hpR[1]+pp[1]*5],[hpL[0]-pp[0]*5,hpL[1]-pp[1]*5]];
+    torso=`<path d="M${pts.map(q=>f1(q[0])+","+f1(q[1])).join(" L")} Z" fill="${L.outfit==="vest"?skin:oc}" stroke="${OL}" stroke-width="2" stroke-linejoin="round"/>`;
+    if(L.outfit==="vest")torso+=`<path d="M${f1(shL[0])},${f1(shL[1])} L${f1(H[0]-pp[0]*4)},${f1(H[1]-pp[1]*4)} M${f1(shR[0])},${f1(shR[1])} L${f1(H[0]+pp[0]*4)},${f1(H[1]+pp[1]*4)}" stroke="${oc}" stroke-width="5"/>`;
+    else torso+=`<path d="M${f1(N[0])},${f1(N[1])} L${f1(H[0])},${f1(H[1])}" stroke="${el.c}" stroke-width="1.4" opacity=".8"/>`;
+    torso+=`<path d="M${f1(hpL[0]-pp[0]*5+td[0]*5)},${f1(hpL[1]-pp[1]*5+td[1]*5)} L${f1(hpR[0]+pp[0]*5+td[0]*5)},${f1(hpR[1]+pp[1]*5+td[1]*5)}" stroke="${sash}" stroke-width="5"/>`;}
+  else{torso=seg(H,N,21,L.outfit==="vest"?skin:oc);
+    if(L.outfit==="vest")torso+=`<line x1="${f1(H[0]-pp[0]*7)}" y1="${f1(H[1]-pp[1]*7)}" x2="${f1(N[0]-pp[0]*7)}" y2="${f1(N[1]-pp[1]*7)}" stroke="${oc}" stroke-width="7" stroke-linecap="round"/>`;
+    else torso+=`<line x1="${f1(H[0]-pp[0]*6)}" y1="${f1(H[1]-pp[1]*6)}" x2="${f1(N[0]-pp[0]*6)}" y2="${f1(N[1]-pp[1]*6)}" stroke="${el.c}" stroke-width="1.6" opacity=".85"/>`;
+    const bb=[H[0]+td[0]*5,H[1]+td[1]*5];torso+=`<line x1="${f1(bb[0]-pp[0]*10.5)}" y1="${f1(bb[1]-pp[1]*10.5)}" x2="${f1(bb[0]+pp[0]*10.5)}" y2="${f1(bb[1]+pp[1]*10.5)}" stroke="${sash}" stroke-width="5"/>`;}
+  const neck=seg(N,[N[0]+hd[0]*6,N[1]+hd[1]*6],6,skinS);
+  // hoofd
+  const rot=P.t+(P.nk||0);let head=`<g transform="translate(${f1(HC[0])} ${f1(HC[1])}) rotate(${f1(rot)})${P.hf?" scale(-1 1)":""}">`;
+  const hcD=shade(hc,-.35);
+  if(!front){
+    if(L.hair==="stekels")head+=`<path d="M-11,-4 L-20,-10 L-11,-11 L-15,-19 L-6,-14 L-4,-22 L1,-14 L8,-19 L7,-10 Z" fill="${hc}" stroke="${OL}" stroke-width="1.5" stroke-linejoin="round"/>`;
+    if(L.hair==="lang")head+=`<path d="M-12,-1 C-16,10 -14,20 -8,27 L-3,15 L-5,3 Z" fill="${hc}" stroke="${OL}" stroke-width="1.5"/>`;
+    if(L.hair==="knot")head+=`<circle cx="-9" cy="-13" r="5.5" fill="${hc}" stroke="${OL}" stroke-width="1.5"/>`;
+    head+=`<circle r="11.5" fill="${skin}" stroke="${OL}" stroke-width="1.9"/><path d="M-12,3 C-14,-10 -6,-15.5 2,-15 C9,-14.5 13.5,-9.5 12.6,-4 L8,-7.5 L3,-5.5 L-1,-8.5 L-5,-5 L-9,-3.5 L-11,5 Z" fill="${hc}" stroke="${OL}" stroke-width="1.5" stroke-linejoin="round"/>`;
+    if(L.hair==="opzij")head+=`<path d="M0,-15 C8,-14 15,-8 14,1 L10,-5 L4,-7 Z" fill="${hc}" stroke="${OL}" stroke-width="1.4"/>`;
+    head+=`<circle cx="-2" cy="1.5" r="2.6" fill="${skinS}" stroke="${OL}" stroke-width="1"/><path d="M4,-2.6 L8.6,-3.4" stroke="${OL}" stroke-width="2.2" stroke-linecap="round"/><path d="M3.5,-6.5 L9,-8" stroke="${hcD}" stroke-width="1.6" stroke-linecap="round"/><path d="M7,5 L10,4.4" stroke="${OL}" stroke-width="1.2" stroke-linecap="round"/>`;
+    if(stage>=3)head+=`<circle cx="6.4" cy="-3" r="3" fill="${el.c}" opacity=".45"/>`;
+    if(stage===1||stage===2)head+=`<path d="M-11.5,-6 Q1,-11 11.8,-6.5" stroke="${el.c}" stroke-width="3" fill="none"/>`;
+  }else{
+    if(L.hair==="lang")head+=`<path d="M-12,-2 L-14,18 L-8,14 L-6,0 Z M12,-2 L14,18 L8,14 L6,0 Z" fill="${hc}" stroke="${OL}" stroke-width="1.4"/>`;
+    if(L.hair==="stekels")head+=`<path d="M-10,-8 L-15,-18 L-6,-14 L-2,-22 L2,-14 L8,-20 L8,-11 L14,-14 L10,-5 Z" fill="${hc}" stroke="${OL}" stroke-width="1.4" stroke-linejoin="round"/>`;
+    if(L.hair==="knot")head+=`<circle cx="0" cy="-15" r="5.5" fill="${hc}" stroke="${OL}" stroke-width="1.4"/>`;
+    head+=`<circle r="11.5" fill="${skin}" stroke="${OL}" stroke-width="1.9"/><path d="M-12,-1 C-13,-15 13,-15 12,-1 L9,-7 L5,-3 L1,-8.5 L-3,-3 L-7,-8 L-10,-3 Z" fill="${hc}" stroke="${OL}" stroke-width="1.4" stroke-linejoin="round"/>`;
+    head+=`<path d="M-6.5,1 L-2.8,0.4 M2.8,0.4 L6.5,1" stroke="${OL}" stroke-width="2.2" stroke-linecap="round"/><path d="M-6.6,-3 L-2.6,-4 M2.6,-4 L6.6,-3" stroke="${hcD}" stroke-width="1.5" stroke-linecap="round"/><path d="M-2.4,6.4 Q0,7.6 2.4,6.4" stroke="${OL}" stroke-width="1.2" fill="none"/>`;
+    if(stage===1||stage===2)head+=`<path d="M-11.5,-6 Q0,-10 11.5,-6" stroke="${el.c}" stroke-width="3" fill="none"/>`;
+  }
+  head+=`</g>`;
+  // vastgehouden spullen
+  let held="";const mid=[(A[1][0]+B[1][0])/2,(A[1][1]+B[1][1])/2];
+  if(props.includes("curlbar")){held+=front?`<line x1="${f1(A[1][0]-14)}" y1="${f1(A[1][1])}" x2="${f1(B[1][0]+14)}" y2="${f1(B[1][1])}" stroke="#2a2a33" stroke-width="3.4"/>`:`<circle cx="${f1(mid[0])}" cy="${f1(mid[1])}" r="11" fill="#2a2633" stroke="${OL}" stroke-width="1.8"/><circle cx="${f1(mid[0])}" cy="${f1(mid[1])}" r="7" fill="none" stroke="${el.c}" stroke-width="1.6"/><circle cx="${f1(mid[0])}" cy="${f1(mid[1])}" r="2" fill="#c9ced8"/>`;}
+  if(props.includes("bags"))[A[1],B[1]].forEach(h=>{held+=`<path d="M${f1(h[0]-8)},${f1(h[1]+4)} L${f1(h[0]+8)},${f1(h[1]+4)} L${f1(h[0]+7)},${f1(h[1]+24)} L${f1(h[0]-7)},${f1(h[1]+24)} Z" fill="${shade(el.c,-.35)}" stroke="${OL}" stroke-width="1.6"/>`;});
+  if(props.includes("bandhands"))held+=`<line x1="${f1(A[1][0])}" y1="${f1(A[1][1])}" x2="${f1(B[1][0])}" y2="${f1(B[1][1])}" stroke="${el.c}" stroke-width="3"/>`;
+  if(props.includes("bandanchor"))held+=`<path d="M${f1(A[1][0])},${f1(A[1][1])} L120,52 L${f1(B[1][0])},${f1(B[1][1])}" stroke="${el.c}" stroke-width="2.6" fill="none"/><circle cx="120" cy="52" r="3" fill="${el.c}"/>`;
+  if(props.includes("bandside"))held+=`<path d="M${f1(mid[0])},${f1(mid[1])} L232,112" stroke="${el.c}" stroke-width="3" fill="none"/>`;
+  if(props.includes("bandknee"))held+=`<line x1="${f1(Lg[0][0])}" y1="${f1(Lg[0][1])}" x2="${f1(Rg[0][0])}" y2="${f1(Rg[0][1])}" stroke="${el.c}" stroke-width="3.4"/>`;
+  if(props.includes("bandknee2"))held+=`<path d="M${f1(Rg[0][0])},${f1(Rg[0][1])} L232,${f1(Rg[0][1]+4)}" stroke="${el.c}" stroke-width="3"/>`;
+  if(props.includes("rope")){const ph=P.rope||0,cy=128+118*Math.cos(ph*Math.PI*2);held+=`<path d="M${f1(A[1][0])},${f1(A[1][1])} C${f1(A[1][0]-18)},${f1(cy)} ${f1(B[1][0]+18)},${f1(cy)} ${f1(B[1][0])},${f1(B[1][1])}" stroke="${shade(el.c,.2)}" stroke-width="2" fill="none"/>`;}
+  if(front)return leg(hpL,Lg,false)+leg(hpR,Rg,false)+torso+neck+arm(shL,A,false)+arm(shR,B,false)+head+held;
+  return arm(shL,A,true)+leg(hpL,Lg,true)+torso+leg(hpR,Rg,false)+neck+head+held+arm(shR,B,false);
+}
+function dScene(ex,P,look,stage,time){
+  const L=lookOf(look),el=L.el,G=DX.G,pr=ex.props||[];
+  const FLOOR=["push","pushx","pike","situp","legraise","hollow","deadbug","superman","plank","sideplank","bridge","clam","climber","bear","yoga","floorpress","skull"];
+  const vb=FLOOR.some(k=>EXD[k]===ex)?"10 92 220 136":"0 0 240 240";
+  let o=`<svg viewBox="${vb}" role="img" aria-label="${esc(ex.n)}, voorgedaan door je hunter">`;
+  o+=`<defs><radialGradient id="exglow" cx="50%" cy="60%" r="60%"><stop offset="0" stop-color="${el.c}" stop-opacity="${stage>=3?.32:.18}"/><stop offset="1" stop-color="${el.c}" stop-opacity="0"/></radialGradient></defs>`;
+  o+=`<rect width="240" height="240" fill="#060c18"/><ellipse cx="120" cy="150" rx="130" ry="110" fill="url(#exglow)"/>`;
+  for(let i=0;i<7;i++)o+=`<line x1="${i*40}" y1="0" x2="${i*40}" y2="${G}" stroke="${el.c}" stroke-opacity=".05"/>`;
+  o+=`<rect x="0" y="${G}" width="240" height="${240-G}" fill="#0b1426"/><line x1="0" y1="${G}" x2="240" y2="${G}" stroke="${el.c}" stroke-opacity=".5" stroke-width="1.4"/>`;
+  if(pr.includes("moving")){const off=(time*(ex===EXD.run?150:70))%30;for(let x=-30;x<270;x+=30)o+=`<line x1="${f1(x-off)}" y1="${G+8}" x2="${f1(x-off+12)}" y2="${G+8}" stroke="${el.c}" stroke-opacity=".35" stroke-width="2"/>`;}
+  if(pr.includes("matplane"))o+=`<path d="M40,190 L214,190 L232,230 L22,230 Z" fill="${shade(el.c,-.4)}" stroke="#140c18" stroke-width="1.2" opacity=".9"/>`;
+  if(pr.includes("mat"))o+=`<rect x="26" y="${G-3}" width="190" height="5" rx="2.5" fill="${shade(el.c,-.35)}" stroke="#140c18" stroke-width="1"/>`;
+  if(pr.includes("bar"))o+=`<line x1="54" y1="34" x2="196" y2="34" stroke="#140c18" stroke-width="7" stroke-linecap="round"/><line x1="54" y1="34" x2="196" y2="34" stroke="#c9ced8" stroke-width="4" stroke-linecap="round"/><line x1="60" y1="34" x2="60" y2="0" stroke="#3b4a66" stroke-width="4"/><line x1="190" y1="34" x2="190" y2="0" stroke="#3b4a66" stroke-width="4"/>`;
+  if(pr.includes("chair"))o+=`<g stroke="#140c18" stroke-width="1.6"><rect x="64" y="172" width="40" height="6" fill="#7a5a3a"/><rect x="62" y="118" width="6" height="60" fill="#6b4a2e"/><rect x="66" y="178" width="5" height="34" fill="#6b4a2e"/><rect x="98" y="178" width="5" height="34" fill="#6b4a2e"/></g>`;
+  if(pr.includes("bench"))o+=`<g stroke="#140c18" stroke-width="1.6"><rect x="36" y="154" width="58" height="8" fill="#7a5a3a"/><rect x="40" y="162" width="6" height="50" fill="#6b4a2e"/><rect x="84" y="162" width="6" height="50" fill="#6b4a2e"/></g>`;
+  if(pr.includes("step"))o+=`<rect x="128" y="192" width="54" height="20" fill="#3b4a66" stroke="#140c18" stroke-width="1.6"/>`;
+  if(pr.includes("wall"))o+=`<rect x="194" y="0" width="46" height="${G}" fill="#1a2640" stroke="#140c18" stroke-width="1.6"/>`;
+  if(pr.includes("stairs")){const off=(time*22)%22;o+=`<g fill="#2a3a58" stroke="#140c18" stroke-width="1.4">`;for(let i=-1;i<6;i++){const x=150+i*22-off,y=G-(i+1)*14+off*0.64;o+=`<rect x="${f1(x)}" y="${f1(y)}" width="80" height="${f1(G-y)}"/>`;}o+=`</g><rect x="0" y="${G}" width="240" height="${240-G}" fill="#0b1426"/>`;}
+  if(pr.includes("bike")){const a=P.pedal||0;o+=`<g stroke="#140c18" stroke-width="2" fill="none"><circle cx="76" cy="190" r="22" stroke="#c9ced8" stroke-width="3"/><circle cx="176" cy="190" r="22" stroke="#c9ced8" stroke-width="3"/></g><path d="M76,190 L124,188 L158,130 L104,136 Z M124,188 L102,136 M176,190 L160,124" stroke="${el.c}" stroke-width="4" fill="none" stroke-linejoin="round"/><path d="M96,134 L114,134" stroke="#140c18" stroke-width="5" stroke-linecap="round"/><path d="M152,122 L168,120" stroke="#140c18" stroke-width="4" stroke-linecap="round"/><line x1="${f1(124+Math.cos(a)*15)}" y1="${f1(188+Math.sin(a)*15)}" x2="${f1(124-Math.cos(a)*15)}" y2="${f1(188-Math.sin(a)*15)}" stroke="#c9ced8" stroke-width="2.4"/>`;}
+  o+=`<ellipse cx="${f1(P.h[0])}" cy="${G+3}" rx="46" ry="5" fill="#000" opacity=".4"/>`;
+  o+=dFigure(P,look,stage,el,time,pr);
+  return o+`</svg>`;
+}
+function dPoseAt(ex,time){
+  if(ex.fn)return ex.fn((time/ex.per)%1);
+  const tot=ex.d.reduce((a,b)=>a+b,0);let t=time%tot,i=0;while(t>ex.d[i]){t-=ex.d[i];i++;}
+  return dlerp(ex.k[i],ex.k[(i+1)%ex.k.length],dease(Math.min(1,t/ex.d[i])));
+}
+let demo=null;
+function openDemo(ti){
+  const tm=EXTERMS[+ti];if(!tm)return;const ex=EXD[tm[1]];if(!ex)return;
+  const name=tm[2]||ex.n,cues=tm[3]||ex.c;
+  closeDemo();
+  const lay=document.createElement("div");lay.className="overlay ex-overlay";lay.setAttribute("role","dialog");lay.setAttribute("aria-label",name);
+  lay.innerHTML=`<div class="win ex-win"><span class="sys-label">[ Oefening ]</span><h2>${esc(name)}</h2><div class="ex-stage" id="ex-stage"></div>
+    <ul class="ex-cues">${cues.map(c=>`<li>${esc(c)}</li>`).join("")}</ul>
+    <div class="actions"><button class="btn ghost" data-exspeed="1">${"Langzaam"}</button><button class="btn" data-exclose="1">Sluiten</button></div></div>`;
+  document.body.appendChild(lay);
+  const reduce=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+  demo={ex,el:lay.querySelector("#ex-stage"),t0:performance.now(),speed:1,acc:0,last:performance.now(),reduce,raf:0,lay};
+  const stage=rankIdx(S.level);
+  const tick=now=>{if(!demo)return;const dt=(now-demo.last)/1000;demo.last=now;demo.acc+=dt*demo.speed;
+    let tt=demo.acc;if(demo.reduce&&!ex.fn){const tot=ex.d.reduce((a,b)=>a+b,0);const step=Math.floor(tt/1.4)%ex.k.length;let s=0;for(let i=0;i<step;i++)s+=ex.d[i];tt=s;}
+    demo.el.innerHTML=dScene(ex,dPoseAt(ex,tt),S.look,stage,tt);demo.raf=requestAnimationFrame(tick);};
+  demo.raf=requestAnimationFrame(tick);
+  lay.addEventListener("click",e=>{if(e.target===lay||e.target.closest("[data-exclose]")){closeDemo();return;}
+    const sp=e.target.closest("[data-exspeed]");if(sp){demo.speed=demo.speed===1?0.45:1;sp.textContent=demo.speed===1?"Langzaam":"Normaal tempo";}});
+  setTimeout(()=>{const b=lay.querySelector("[data-exclose]");if(b)b.focus();},50);
+}
+function closeDemo(){if(demo){cancelAnimationFrame(demo.raf);demo.lay.remove();demo=null;}}
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&demo){closeDemo();return;}const t=e.target&&e.target.closest&&e.target.closest(".ex-term");if(t&&(e.key==="Enter"||e.key===" ")){e.preventDefault();openDemo(t.dataset.ex);}});
+document.addEventListener("click",e=>{const t=e.target.closest&&e.target.closest(".ex-term");if(t){e.preventDefault();e.stopPropagation();openDemo(t.dataset.ex);}},true);
+
 /* ===================== RENDER ===================== */
 function hud(){
   const ri=rankIdx(S.level),R=RANKS[ri],need=needXp(S.level),pct=Math.min(100,S.xp/need*100);
@@ -1122,7 +1348,7 @@ function questsView(){
   if(P&&P.mode==="hard"&&P.date===S.today.date){
     if(!P.done){h+=`<section class="win notice stack"><span class="sys-label">[ Systeem · Strafquest ]</span>
       <p style="margin:0">Je hebt de dagelijkse quest niet voltooid.${P.lost?` Je streak van <b>${P.lost}</b> ${P.lost===1?"dag":"dagen"} is verbroken.`:""}${P.loss?` Je verliest <b>${P.loss} XP</b>.`:""}</p>
-      <div class="q-text" style="color:var(--red)">${esc(P.quest)}</div>
+      <div class="q-text" style="color:var(--red)">${exLink(P.quest)}</div>
       <p class="muted small" style="margin:0">Rond deze strafquest vandaag af. Zolang hij openstaat, krijg je geen dagbonus.</p>
       <button class="btn danger" data-act="pendone">${P.confirm?"Tik nogmaals om te bevestigen":"Strafquest voltooid"}</button></section>`;}
     else if(!P.ack){h+=`<section class="win stack"><span class="sys-label">[ Systeem ]</span><p style="margin:0">Straf voldaan. Je bent terug op het pad.</p><button class="btn ghost" data-act="ackpen">Sluiten</button></section>`;}
@@ -1132,16 +1358,16 @@ function questsView(){
   if(!S.settings.watch&&!S.watchHintOff)h+=`<section class="win watch-win stack"><span class="sys-label">[ Apple Watch · optioneel ]</span><p style="margin:0">Heb je een Apple Watch? Zet de Watch-quests aan. Je vult je ringen en stappen in met een paar tikken, en wie alle ringen sluit bouwt een ringstreak op.</p><div class="actions"><button class="btn ghost" data-act="whint">Niet nu</button><button class="btn" data-act="wtoggle">Aanzetten</button></div></section>`;
   h+=`<div class="today-head"><div><span class="sys-label">[ Dagelijkse quest ]</span><h2>${chosenMode?"Je quests van vandaag":"Kies 3 van de 7"}</h2></div><div class="timer">Reset over<b id="timer">${timeLeft()}</b></div></div>`;
   if(!chosenMode){
-    h+=`<p class="muted small" style="margin:0">Het systeem biedt je vandaag zeven quests aan. Kies er drie en rond ze vóór middernacht af.</p><div class="qlist">`;
+    h+=`<p class="muted small" style="margin:0">Het systeem biedt je vandaag zeven quests aan. Kies er drie en rond ze vóór middernacht af. Tik op een <span class="ex-hint">onderstreepte oefening</span> en je hunter doet hem voor.</p><div class="qlist">`;
     t.offer.forEach((q,i)=>{const sel=t.sel.includes(i);
-      h+=`<button class="q${sel?" sel":""}${q.hidden?" hidden-q":""}" data-cat="${q.cat}" data-act="sel" data-i="${i}" aria-pressed="${sel}">${qMeta(q)}<div class="q-text">${esc(q.text)}</div>${q.h?`<div class="q-hint">${esc(q.h)}</div>`:""}<span class="q-check">${sel?"✓":""}</span></button>`;});
+      h+=`<button class="q${sel?" sel":""}${q.hidden?" hidden-q":""}" data-cat="${q.cat}" data-act="sel" data-i="${i}" aria-pressed="${sel}">${qMeta(q)}<div class="q-text">${exLink(q.text)}</div>${q.h?`<div class="q-hint">${esc(q.h)}</div>`:""}<span class="q-check">${sel?"✓":""}</span></button>`;});
     h+=`</div><div class="choose-bar"><div class="row"><span>${t.sel.length} / 3 gekozen</span><span>${t.sel.reduce((a,i)=>a+t.offer[i].xp,0)} XP</span></div>
       <div class="actions"><button class="btn ghost" data-act="reroll" ${t.rerolled?"disabled":""}>${t.rerolled?"Al opnieuw getrokken":"Nieuwe 7 (1×)"}</button><button class="btn" data-act="accept" ${t.sel.length===3?"":"disabled"}>Accepteer</button></div></div>`;
   }else{
     if(t.perfect){h+=`<section class="win complete-banner"><span class="sys-label">[ Systeem ]</span><h2>Dagelijkse quest voltooid</h2><p class="muted small" style="margin:0">Streak: ${S.streak} ${S.streak===1?"dag":"dagen"}. Je poortsleutel ligt klaar.</p></section>`;}
     h+=`<div class="qlist">`;
     t.chosen.forEach(i=>{const q=t.offer[i],d=!!t.done[i];
-      h+=`<article class="q${d?" done":""}${q.hidden?" hidden-q":""}" data-cat="${q.cat}">${qMeta(q)}<div class="q-text">${esc(q.text)}</div>${q.h&&!d?`<div class="q-hint">${esc(q.h)}</div>`:""}`;
+      h+=`<article class="q${d?" done":""}${q.hidden?" hidden-q":""}" data-cat="${q.cat}">${qMeta(q)}<div class="q-text">${exLink(q.text)}</div>${q.h&&!d?`<div class="q-hint">${esc(q.h)}</div>`:""}`;
       if(d){h+=`<div class="sys-label" style="color:var(--ok)">✓ Voltooid${q.verified?" · ⌚ via Watch":""}</div>`;}
       else if(q.m&&S.settings.watch&&!q.target){h+=watchProgress(q);const ok=watchMet(q),cf=t.confirm===i;
         h+=ok?`<button class="btn btn-done gold" data-act="done" data-i="${i}">Claim ${Math.round(q.xp*streakMult())} XP</button>`:`<button class="btn btn-done${cf?" gold":""}" data-act="done" data-i="${i}">${cf?"Tik nogmaals om te bevestigen":"Toch handmatig afvinken"}</button>`;}
@@ -1209,7 +1435,7 @@ function logView(){
    <p class="muted small" style="margin:0">Op je beginscherm zetten: open deze pagina in Safari, tik op Deel en kies <b>Zet op beginscherm</b>.</p>
    <p class="muted small" style="margin:0" id="syncinfo">Je voortgang staat alleen op deze telefoon, niet in de cloud. Maak af en toe een back-up en bewaar de code in je notities.</p>
    <button class="btn danger" data-act="reset">${resetArm?"Tik nogmaals: alles wissen":"Begin opnieuw"}</button>
-   <p class="muted small" style="margin:0;text-align:center">Versie 1.4 · Watch-snelinvoer</p></section>`;
+   <p class="muted small" style="margin:0;text-align:center">Versie 1.5 · oefendemo’s</p></section>`;
   return h;
 }
 let resetArm=false;
